@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+const coverages = [
+  { id: 'home', icon: '🏠', title: 'Homeowners Insurance', desc: 'Protect your home and belongings from fire, theft, weather damage, liability, and more. We compare top carriers to find the right fit for your property and budget.' },
+  { id: 'auto', icon: '🚗', title: 'Auto Insurance', desc: 'From minimum state requirements to comprehensive coverage, we help Utah drivers find affordable auto policies — including high-risk and SR-22 situations.' },
+  { id: 'umbrella', icon: '☂️', title: 'Umbrella Insurance', desc: 'An extra layer of liability protection above your home and auto limits. One umbrella policy can protect your savings, home, and future income from major claims.' },
+  { id: 'motorcycle', icon: '🏍️', title: 'Motorcycle Insurance', desc: 'Customized coverage for your bike whether you\'re a weekend rider or a daily commuter. We cover liability, collision, comprehensive, and accessories.' },
+  { id: 'boat', icon: '⛵', title: 'Boat & Watercraft Insurance', desc: 'From fishing boats to jet skis, we offer coverage for your watercraft on Utah\'s lakes and reservoirs — including liability, physical damage, and emergency assistance.' },
+  { id: 'rv', icon: '🚐', title: 'RV & Motorhome Insurance', desc: 'Whether your RV is parked or on the road, we\'ll find coverage that fits your travel lifestyle — full-timers and seasonal campers alike.' },
+  { id: 'atv', icon: '🛻', title: 'ATV & Off-Road Insurance', desc: 'Protect your ATV, UTV, or dirt bike with coverage designed for off-road adventures. We offer liability, collision, and comprehensive options.' },
+  { id: 'life', icon: '💛', title: 'Life Insurance', desc: 'Term or permanent life insurance to protect your family\'s financial future. We\'ll help you understand your options and find the right coverage for your situation.' },
+];
+---
+<Layout
+  title="Personal Insurance"
+  description="Personal insurance in Bountiful, Utah. B&A Insurance Producers offers home, auto, umbrella, motorcycle, boat, RV, ATV, and life insurance from multiple top carriers. Call (801) 487-2300."
+>
+  <section class="bg-[#016490] text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-[#7ebee7] font-semibold text-sm uppercase tracking-widest mb-3">Personal Coverage</p>
+      <h1 class="text-4xl sm:text-5xl font-extrabold mb-6">Personal Insurance<br /><span class="text-[#7ebee7]">Tailored to Your Life</span></h1>
+      <p class="text-white/80 text-xl max-w-2xl leading-relaxed mb-8">Bowthorpe &amp; Associates has been helping Utah families feel protected since the early 1980s. We compare top carriers so you get the right coverage — not just the easiest option to sell.</p>
+      <a href="/contact-us/" class="inline-block px-8 py-4 bg-white text-[#016490] font-bold rounded-lg hover:bg-[#f4f8fb] transition-colors shadow-lg">Get a Personal Quote</a>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl font-bold text-slate-900">Personal Coverage Options</h2>
+        <p class="mt-3 text-slate-500 max-w-xl mx-auto">From your home to your boat to your family's future, we have coverage for every part of your personal life.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {coverages.map(({ id, icon, title, desc }) => (
+          <div id={id} class="bg-[#f4f8fb] rounded-2xl p-6 border border-slate-100 hover:shadow-md transition-shadow">
+            <div class="text-4xl mb-4">{icon}</div>
+            <h3 class="font-bold text-slate-900 mb-2">{title}</h3>
+            <p class="text-sm text-slate-500 leading-relaxed">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-[#f4f8fb]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-slate-900 text-center mb-10">Personal Insurance FAQs</h2>
+      <div class="space-y-4">
+        {[
+          { q: 'Do I need more than the minimum auto coverage in Utah?', a: 'Utah\'s minimum liability requirements are relatively low. If you have assets to protect — a home, savings, retirement accounts — carrying higher limits and an umbrella policy is strongly recommended. We\'ll help you understand your real exposure.' },
+          { q: 'How much home insurance do I need?', a: 'Your dwelling coverage should be based on the cost to rebuild your home, not its market value. We\'ll help you identify the right amount, including coverage for your personal property, liability, and loss of use.' },
+          { q: 'What\'s the benefit of bundling home and auto?', a: 'Bundling with a single carrier typically saves 10–25% on premiums. It also simplifies your billing and claims experience. That said, sometimes separate carriers are still the better value — and we\'ll always tell you which is which.' },
+          { q: 'Can you help if I\'ve had accidents or violations?', a: 'Yes. We work with carriers that specialize in nonstandard and high-risk auto insurance. We\'ll find the best available rate for your situation without judgment.' },
+        ].map(({ q, a }) => (
+          <details class="bg-white rounded-xl border border-slate-100 shadow-sm group">
+            <summary class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-slate-900 list-none">
+              {q}
+              <svg class="w-5 h-5 text-[#016490] shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <p class="px-6 pb-5 text-slate-600 leading-relaxed border-t border-slate-50 pt-4">{a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold text-slate-900 mb-4">Ready to Get Covered?</h2>
+      <p class="text-slate-500 mb-8">Call us or request a quote online. One of our licensed agents will compare options from our carrier network at no cost to you.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contact-us/" class="px-10 py-4 bg-[#016490] hover:bg-[#014d6e] text-white font-bold rounded-lg transition-colors">Request a Quote</a>
+        <a href="tel:8014872300" class="px-10 py-4 border-2 border-[#016490] text-[#016490] font-semibold rounded-lg hover:bg-[#f4f8fb] transition-colors">(801) 487-2300</a>
+      </div>
+    </div>
+  </section>
+</Layout>

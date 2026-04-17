@@ -1,0 +1,93 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  schema?: object;
+}
+
+const {
+  title,
+  description = 'B&A Insurance Producers is an independent insurance agency in Bountiful, Utah offering personal, business, and health insurance from top carriers since the early 1980s.',
+  canonical,
+  schema,
+} = Astro.props;
+
+const canonicalURL = canonical ?? Astro.url.href;
+const fullTitle = title.includes('B&A') ? title : `${title} | B&A Insurance Producers`;
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'InsuranceAgency',
+      '@id': 'https://bowthorpeinsurance.com/#agency',
+      name: 'B&A Insurance Producers',
+      alternateName: 'Bowthorpe & Associates Insurance',
+      url: 'https://bowthorpeinsurance.com',
+      logo: 'https://bowthorpeinsurance.com/logo-round.png',
+      telephone: '+18014872300',
+      email: 'info@bowthorpeinsurance.com',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '1075 S. 500 W., Ste. 100',
+        addressLocality: 'Bountiful',
+        addressRegion: 'UT',
+        postalCode: '84010',
+        addressCountry: 'US',
+      },
+      openingHoursSpecification: [
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday'], opens: '08:30', closes: '16:30' },
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Friday', opens: '08:30', closes: '15:00' },
+      ],
+      areaServed: [
+        { '@type': 'State', name: 'Utah' },
+        { '@type': 'City', name: 'Bountiful' },
+        { '@type': 'City', name: 'Salt Lake City' },
+      ],
+      foundingDate: '1982',
+      description: 'Independent insurance agency offering personal, business, and health insurance in Bountiful, Utah and surrounding areas since the early 1980s.',
+      sameAs: ['https://bowthorpeinsurance.com'],
+    },
+  ],
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://bowthorpeinsurance.com/logo-round.png" />
+    <meta property="og:site_name" content="B&A Insurance Producers" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="/logo-round.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+  </head>
+  <body class="antialiased" style="font-family: 'Inter', system-ui, sans-serif;">
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

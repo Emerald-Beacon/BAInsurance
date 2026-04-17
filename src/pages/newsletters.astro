@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="Monthly Newsletters"
+  description="Stay informed with monthly insurance newsletters from B&A Insurance Producers. Tips, updates, and resources for Utah families and businesses."
+>
+  <section class="bg-[#016490] text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-[#7ebee7] font-semibold text-sm uppercase tracking-widest mb-3">Stay Informed</p>
+      <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Monthly Newsletters</h1>
+      <p class="text-white/80 text-xl max-w-xl">Timely insurance tips, industry updates, and helpful reminders delivered to your inbox.</p>
+    </div>
+  </section>
+  <section class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-slate-600 text-lg mb-8">Our newsletter archive is coming soon. In the meantime, subscribe below to receive our monthly updates directly.</p>
+      <form name="newsletter" method="POST" data-netlify="true" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input type="hidden" name="form-name" value="newsletter" />
+        <input type="email" name="email" required placeholder="Your email address" class="flex-1 px-4 py-3 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#016490]" />
+        <button type="submit" class="px-6 py-3 bg-[#016490] hover:bg-[#014d6e] text-white font-bold rounded-lg transition-colors text-sm">Subscribe</button>
+      </form>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,38 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import posts from '../../data/posts.json';
+
+const sortedPosts = [...posts].sort((a, b) => b.date.localeCompare(a.date));
+---
+<Layout
+  title="Insurance Blog & Resources"
+  description="Insurance tips, guides, and resources from the licensed agents at B&A Insurance Producers in Bountiful, Utah. Topics include personal, business, health, and Medicare coverage."
+>
+  <section class="bg-[#016490] text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-[#7ebee7] font-semibold text-sm uppercase tracking-widest mb-3">Expert Insights</p>
+      <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Insurance Resources &amp; Blog</h1>
+      <p class="text-white/80 text-xl max-w-2xl">Helpful guides, tips, and answers to the insurance questions Utah families and businesses actually ask.</p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {sortedPosts.map(({ title, slug, excerpt, date }) => (
+          <a href={`/${slug}/`} class="group bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
+            <div class="h-3 bg-gradient-to-r from-[#016490] to-[#7ebee7]"></div>
+            <div class="p-6 flex flex-col flex-1">
+              {date && <p class="text-xs text-slate-400 mb-3">{new Date(date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>}
+              <h2 class="text-base font-bold text-slate-900 group-hover:text-[#016490] transition-colors leading-snug mb-3 flex-1">{title}</h2>
+              <p class="text-sm text-slate-500 leading-relaxed line-clamp-3 mb-4">{excerpt}</p>
+              <span class="text-[#016490] font-semibold text-sm flex items-center gap-1">
+                Read More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

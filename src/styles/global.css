@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #016490;
+  --color-brand-dark: #014d6e;
+  --color-brand-light: #7ebee7;
+  --color-gray: #879096;
+  --color-mist: #f4f8fb;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: #1e293b;
+}

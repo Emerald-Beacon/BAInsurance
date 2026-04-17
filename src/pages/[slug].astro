@@ -1,0 +1,86 @@
+---
+import Layout from '../layouts/Layout.astro';
+import posts from '../data/posts.json';
+
+export async function getStaticPaths() {
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { title, excerpt, content, date, slug } = post;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description: excerpt,
+  datePublished: date,
+  publisher: {
+    '@type': 'InsuranceAgency',
+    name: 'B&A Insurance Producers',
+    url: 'https://bowthorpeinsurance.com',
+  },
+  author: {
+    '@type': 'Organization',
+    name: 'B&A Insurance Producers',
+  },
+  url: `https://bowthorpeinsurance.com/${slug}/`,
+};
+---
+<Layout
+  title={title}
+  description={excerpt}
+  schema={articleSchema}
+>
+  <article>
+    <section class="bg-[#016490] text-white py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <a href="/blog/" class="inline-flex items-center gap-2 text-[#7ebee7] text-sm font-medium hover:text-white mb-6 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          Back to Blog
+        </a>
+        {date && <p class="text-[#7ebee7] text-sm mb-3">{new Date(date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>}
+        <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight">{title}</h1>
+      </div>
+    </section>
+
+    <section class="py-16 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-12">
+          <div class="lg:col-span-3">
+            <div class="prose prose-lg prose-slate max-w-none prose-headings:text-slate-900 prose-a:text-[#016490]">
+              {content.split('\n').filter(Boolean).map((para: string) => (
+                <p>{para}</p>
+              ))}
+            </div>
+          </div>
+
+          <!-- Sidebar CTA -->
+          <aside class="lg:col-span-1">
+            <div class="sticky top-24 bg-[#f4f8fb] rounded-2xl p-6 border border-slate-100">
+              <img src="/logo-round.png" alt="B&A Insurance Producers" class="h-16 w-16 mx-auto mb-4" width="64" height="64" />
+              <h3 class="font-bold text-slate-900 text-center mb-2">Have a Question?</h3>
+              <p class="text-sm text-slate-500 text-center mb-4">Talk to a licensed agent at B&amp;A Insurance Producers — no cost, no obligation.</p>
+              <a href="/contact-us/" class="block w-full py-3 bg-[#016490] hover:bg-[#014d6e] text-white font-bold rounded-lg text-center text-sm transition-colors mb-3">Get a Free Quote</a>
+              <a href="tel:8014872300" class="block w-full py-3 border border-[#016490] text-[#016490] font-semibold rounded-lg text-center text-sm hover:bg-white transition-colors">(801) 487-2300</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <section class="py-12 bg-[#f4f8fb]">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">Need Help With Your Coverage?</h2>
+      <p class="text-slate-500 mb-6">Our licensed agents are ready to answer your questions and compare options for you at no cost.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contact-us/" class="px-8 py-4 bg-[#016490] hover:bg-[#014d6e] text-white font-bold rounded-lg transition-colors">Contact Us</a>
+        <a href="/blog/" class="px-8 py-4 border border-[#016490] text-[#016490] font-semibold rounded-lg hover:bg-white transition-colors">More Articles</a>
+      </div>
+    </div>
+  </section>
+</Layout>
