@@ -1,11 +1,34 @@
 @import "tailwindcss";
 
+/* Self-hosted variable fonts (replaces Google Fonts) */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/fraunces-variable.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/inter-variable.woff2') format('woff2');
+}
+
 @theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+
+  --color-navy: #013A52;
   --color-brand: #016490;
   --color-brand-dark: #014d6e;
-  --color-brand-light: #7ebee7;
-  --color-gray: #879096;
+  --color-brand-light: #7EBEE7;
+  --color-ink: #15212B;
+  --color-bg: #F5F7F9;
+  --color-line: #E5EBF0;
   --color-mist: #f4f8fb;
+  --color-gray: #879096;
 }
 
 html {
@@ -13,5 +36,12 @@ html {
 }
 
 body {
-  color: #1e293b;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* Headlines carry the serif character */
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
 }

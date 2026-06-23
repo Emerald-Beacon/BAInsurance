@@ -73,9 +73,8 @@ const localBusinessSchema = {
     <meta property="og:site_name" content="B&A Insurance Producers" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/fraunces-variable.woff2" as="font" type="font/woff2" crossorigin />
 
     <link rel="icon" type="image/png" href="/logo-round.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -83,7 +82,7 @@ const localBusinessSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
   </head>
-  <body class="antialiased" style="font-family: 'Inter', system-ui, sans-serif;">
+  <body class="antialiased">
     <Header />
     <main>
       <slot />
