@@ -1,12 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
 const plans = [
-  { icon: '👤', title: 'Individual Health Plans', desc: 'Marketplace and off-exchange health plans for individuals and families. We help you navigate deductibles, networks, premiums, and subsidies to find a plan that fits your life.' },
-  { icon: '🏢', title: 'Group Health Insurance', desc: 'Employer-sponsored health coverage for your team. We design plans that attract and retain employees while keeping costs manageable for your business.' },
-  { icon: '⭐', title: 'Medicare Supplement', desc: 'Medigap plans that cover the gaps left by Original Medicare — including deductibles, copays, and coinsurance. We help you compare plans from top carriers.*' },
-  { icon: '🏥', title: 'Medicare Advantage', desc: 'All-in-one alternatives to Original Medicare that often include dental, vision, and prescription coverage. Our agents help you compare plans in your area.*' },
-  { icon: '💊', title: 'Medicare Part D', desc: 'Prescription drug coverage that works alongside your Medicare plan. We review your medications and help you find the most cost-effective plan.*' },
-  { icon: '💛', title: 'Life Insurance', desc: 'Term and permanent life insurance to protect your family\'s financial future. We compare options to match your coverage needs and budget.' },
+  { icon: 'lucide:user', title: 'Individual Health Plans', desc: 'Marketplace and off-exchange health plans for individuals and families. We help you navigate deductibles, networks, premiums, and subsidies to find a plan that fits your life.' },
+  { icon: 'lucide:users', title: 'Group Health Insurance', desc: 'Employer-sponsored health coverage for your team. We design plans that attract and retain employees while keeping costs manageable for your business.' },
+  { icon: 'lucide:shield-plus', title: 'Medicare Supplement', desc: 'Medigap plans that cover the gaps left by Original Medicare — including deductibles, copays, and coinsurance. We help you compare plans from top carriers.*' },
+  { icon: 'lucide:hospital', title: 'Medicare Advantage', desc: 'All-in-one alternatives to Original Medicare that often include dental, vision, and prescription coverage. Our agents help you compare plans in your area.*' },
+  { icon: 'lucide:pill', title: 'Medicare Part D', desc: 'Prescription drug coverage that works alongside your Medicare plan. We review your medications and help you find the most cost-effective plan.*' },
+  { icon: 'lucide:heart-handshake', title: 'Life Insurance', desc: 'Term and permanent life insurance to protect your family\'s financial future. We compare options to match your coverage needs and budget.' },
 ];
 ---
 <Layout
@@ -31,7 +32,9 @@ const plans = [
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="medicare">
         {plans.map(({ icon, title, desc }) => (
           <div class="bg-[#f4f8fb] rounded-2xl p-8 border border-slate-100 hover:shadow-md transition-shadow">
-            <div class="text-4xl mb-4">{icon}</div>
+            <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-4 shadow-sm">
+              <Icon name={icon} class="w-6 h-6 text-[var(--color-brand)]" />
+            </div>
             <h3 class="font-bold text-slate-900 text-lg mb-3">{title}</h3>
             <p class="text-sm text-slate-500 leading-relaxed">{desc}</p>
           </div>

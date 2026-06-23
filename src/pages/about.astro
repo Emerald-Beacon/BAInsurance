@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
 ---
 <Layout
   title="About Us"
@@ -55,13 +56,15 @@ import Layout from '../layouts/Layout.astro';
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { icon: '🤝', title: 'Integrity', desc: 'We tell you the truth about coverage — even when a less expensive option isn\'t always the right one.' },
-          { icon: '🔓', title: 'Independence', desc: 'No carrier loyalty. We represent you, not the insurance company.' },
-          { icon: '👨‍👩‍👧', title: 'Community', desc: 'Bountiful is our home. We\'ve built relationships here for over 40 years.' },
-          { icon: '📞', title: 'Accessibility', desc: 'When you call, you reach a real agent who knows your name and your policy.' },
+          { icon: 'lucide:handshake', title: 'Integrity', desc: 'We tell you the truth about coverage — even when a less expensive option isn\'t always the right one.' },
+          { icon: 'lucide:unlock', title: 'Independence', desc: 'No carrier loyalty. We represent you, not the insurance company.' },
+          { icon: 'lucide:users-round', title: 'Community', desc: 'Bountiful is our home. We\'ve built relationships here for over 40 years.' },
+          { icon: 'lucide:phone', title: 'Accessibility', desc: 'When you call, you reach a real agent who knows your name and your policy.' },
         ].map(({ icon, title, desc }) => (
           <div class="bg-white rounded-2xl p-8 text-center shadow-sm border border-slate-100">
-            <div class="text-4xl mb-4">{icon}</div>
+            <div class="w-12 h-12 rounded-xl bg-[var(--color-bg)] flex items-center justify-center mb-4 mx-auto">
+              <Icon name={icon} class="w-6 h-6 text-[var(--color-brand)]" />
+            </div>
             <h3 class="font-bold text-slate-900 text-lg mb-3">{title}</h3>
             <p class="text-slate-500 text-sm leading-relaxed">{desc}</p>
           </div>

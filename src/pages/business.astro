@@ -1,14 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
 const coverages = [
-  { icon: '🛡️', title: 'General Liability', desc: 'Protection against third-party claims of bodily injury, property damage, and personal injury arising from your business operations.' },
-  { icon: '🏢', title: 'Commercial Property', desc: 'Covers your building, equipment, inventory, and other business property from fire, theft, vandalism, and covered weather events.' },
-  { icon: '🚛', title: 'Commercial Auto', desc: 'Coverage for company vehicles used in your business — from a single work truck to a full fleet.' },
-  { icon: '☂️', title: 'Commercial Umbrella', desc: 'Extra liability limits above your underlying policies. Essential for businesses with significant exposure.' },
-  { icon: '👷', title: 'Workers\' Compensation', desc: 'Required in Utah for most employers. Covers medical costs and lost wages for employees injured on the job.' },
-  { icon: '💼', title: 'Professional Liability', desc: 'Also known as E&O insurance. Protects professionals from claims of negligence, errors, or omissions in the services they provide.' },
-  { icon: '📋', title: 'Surety Bonds', desc: 'License bonds, contract bonds, and court bonds for contractors, professionals, and businesses requiring bonding.' },
-  { icon: '🔒', title: 'Cyber Liability', desc: 'Covers your business from data breaches, ransomware attacks, and cyber incidents that can disrupt operations and expose sensitive data.' },
+  { icon: 'lucide:shield-check', title: 'General Liability', desc: 'Protection against third-party claims of bodily injury, property damage, and personal injury arising from your business operations.' },
+  { icon: 'lucide:building-2', title: 'Commercial Property', desc: 'Covers your building, equipment, inventory, and other business property from fire, theft, vandalism, and covered weather events.' },
+  { icon: 'lucide:truck', title: 'Commercial Auto', desc: 'Coverage for company vehicles used in your business — from a single work truck to a full fleet.' },
+  { icon: 'lucide:umbrella', title: 'Commercial Umbrella', desc: 'Extra liability limits above your underlying policies. Essential for businesses with significant exposure.' },
+  { icon: 'lucide:hard-hat', title: 'Workers\' Compensation', desc: 'Required in Utah for most employers. Covers medical costs and lost wages for employees injured on the job.' },
+  { icon: 'lucide:briefcase', title: 'Professional Liability', desc: 'Also known as E&O insurance. Protects professionals from claims of negligence, errors, or omissions in the services they provide.' },
+  { icon: 'lucide:file-text', title: 'Surety Bonds', desc: 'License bonds, contract bonds, and court bonds for contractors, professionals, and businesses requiring bonding.' },
+  { icon: 'lucide:lock', title: 'Cyber Liability', desc: 'Covers your business from data breaches, ransomware attacks, and cyber incidents that can disrupt operations and expose sensitive data.' },
 ];
 ---
 <Layout
@@ -33,7 +34,9 @@ const coverages = [
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {coverages.map(({ icon, title, desc }) => (
           <div class="bg-[#f4f8fb] rounded-2xl p-6 border border-slate-100 hover:shadow-md transition-shadow">
-            <div class="text-4xl mb-4">{icon}</div>
+            <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-4 shadow-sm">
+              <Icon name={icon} class="w-6 h-6 text-[var(--color-brand)]" />
+            </div>
             <h3 class="font-bold text-slate-900 mb-2">{title}</h3>
             <p class="text-sm text-slate-500 leading-relaxed">{desc}</p>
           </div>
