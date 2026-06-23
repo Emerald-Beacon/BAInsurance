@@ -45,3 +45,25 @@ h1, h2, h3 {
   font-family: var(--font-serif);
   font-optical-sizing: auto;
 }
+
+/* Scroll-reveal motion — progressive enhancement.
+   Visible by default; hidden only when JS enables motion. */
+.reveal {
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+html.js-motion .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+}
+html.js-motion .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js-motion .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
