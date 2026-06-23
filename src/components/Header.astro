@@ -11,7 +11,7 @@ const nav = [
 const current = Astro.url.pathname;
 ---
 
-<header class="bg-white shadow-sm sticky top-0 z-50">
+<header id="site-header" class="bg-white sticky top-0 z-50 border-b border-[var(--color-line)] transition-shadow">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-20">
       <!-- Logo -->
@@ -24,16 +24,16 @@ const current = Astro.url.pathname;
         {nav.map(({ label, href }) => (
           <a
             href={href}
-            class={`px-3 py-2 text-sm font-medium rounded transition-colors ${
+            class={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
               current.startsWith(href)
-                ? 'text-[#016490] bg-[#f4f8fb]'
-                : 'text-slate-700 hover:text-[#016490] hover:bg-[#f4f8fb]'
+                ? 'text-[var(--color-brand)] bg-[var(--color-bg)]'
+                : 'text-slate-700 hover:text-[var(--color-brand)] hover:bg-[var(--color-bg)]'
             }`}
           >
             {label}
           </a>
         ))}
-        <a href="/contact-us/#quote" class="ml-3 px-5 py-2.5 bg-[#016490] hover:bg-[#014d6e] text-white text-sm font-semibold rounded-lg transition-colors">
+        <a href="/contact-us/#quote" class="ml-3 px-5 py-2.5 bg-[var(--color-brand)] hover:bg-[var(--color-navy)] text-white text-sm font-semibold rounded-lg shadow-sm transition-colors">
           Get a Quote
         </a>
       </nav>
@@ -54,11 +54,11 @@ const current = Astro.url.pathname;
   <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-100 bg-white">
     <div class="px-4 py-3 space-y-1">
       {nav.map(({ label, href }) => (
-        <a href={href} class="block px-3 py-2.5 text-sm font-medium text-slate-700 hover:text-[#016490] hover:bg-[#f4f8fb] rounded">
+        <a href={href} class="block px-3 py-2.5 text-sm font-medium text-slate-700 hover:text-[var(--color-brand)] hover:bg-[var(--color-bg)] rounded">
           {label}
         </a>
       ))}
-      <a href="/contact-us/#quote" class="block mt-2 px-5 py-3 bg-[#016490] text-white text-sm font-semibold text-center rounded-lg">
+      <a href="/contact-us/#quote" class="block mt-2 px-5 py-3 bg-[var(--color-brand)] text-white text-sm font-semibold text-center rounded-lg">
         Get a Quote
       </a>
     </div>
@@ -76,4 +76,17 @@ const current = Astro.url.pathname;
     iconClose?.classList.toggle('hidden', open);
     btn.setAttribute('aria-expanded', String(!open));
   });
+</script>
+
+<script is:inline>
+  (function () {
+    var header = document.getElementById('site-header');
+    if (!header) return;
+    var onScroll = function () {
+      if (window.scrollY > 8) header.classList.add('shadow-md');
+      else header.classList.remove('shadow-md');
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
 </script>
