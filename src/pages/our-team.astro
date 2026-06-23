@@ -7,6 +7,7 @@ const team = [
     role: 'Owner & Health Insurance Specialist',
     bio: 'Sharie has spent the last 28 years as the Principal Life/Health Broker — first working alongside her father Dennis for 10 years, then purchasing Bowthorpe & Associates in 2005 alongside her spouse George. Her deep expertise in health, life, and Medicare products has helped thousands of Utah families navigate their coverage options with confidence.',
     specialty: 'Health, Life & Medicare',
+    photo: '/images/team/sharie.avif',
     initial: 'S',
   },
   {
@@ -14,6 +15,7 @@ const team = [
     role: 'Owner & Managing Agent',
     bio: 'George spent 15 years working in marketing and advertising across the Salt Lake City area before purchasing Bowthorpe & Associates with his spouse Sharie in 2005. As the agency\'s managing principal, George oversees day-to-day operations while ensuring every client receives the personal, honest service that has defined this agency for over 40 years.',
     specialty: 'Agency Management & Personal Lines',
+    photo: '/images/team/george.avif',
     initial: 'G',
   },
   {
@@ -21,6 +23,7 @@ const team = [
     role: 'Sales Director',
     bio: 'Ryan is a Brigham Young University graduate with a degree in Chinese. His exceptional communication skills and years of direct sales experience and training make him a trusted resource for clients exploring their coverage options. Ryan brings energy, thoroughness, and a genuine commitment to finding the right solution for each client.',
     specialty: 'Sales & New Business',
+    photo: '/images/team/ryan.webp',
     initial: 'R',
   },
   {
@@ -28,6 +31,7 @@ const team = [
     role: 'Marketing Director',
     bio: 'Jeff brings over 5 years of product development management experience from the consumer goods industry. He currently operates Emerald Beacon, the marketing agency B&A has partnered with to grow its reach and better serve Utah communities. Jeff ensures that our message — honest, independent, local — reaches the people who need it most.',
     specialty: 'Marketing & Brand Strategy',
+    photo: '/images/team/jeff.webp',
     initial: 'J',
   },
   {
@@ -35,6 +39,7 @@ const team = [
     role: 'CSR & Licensed Agent',
     bio: 'With over 25 years at Bowthorpe & Associates, May is the institutional knowledge and steady hand behind our client service operation. She handles personal and commercial insurance renewals, endorsements, and new business with a level of care and attention to detail that clients have come to rely on for decades.',
     specialty: 'Personal & Commercial Lines',
+    photo: null,
     initial: 'M',
   },
   {
@@ -42,6 +47,7 @@ const team = [
     role: 'Customer Relations Representative',
     bio: 'Alex joined B&A Insurance Producers in 2017, bringing a University of Utah degree in financial planning. She supports clients across a wide range of functions — from design work and appointment setting to bookkeeping — ensuring every interaction is professional, warm, and efficient.',
     specialty: 'Client Relations & Operations',
+    photo: '/images/team/alex.avif',
     initial: 'A',
   },
 ];
@@ -61,12 +67,23 @@ const team = [
   <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {team.map(({ name, role, bio, specialty, initial }) => (
+        {team.map(({ name, role, bio, specialty, photo, initial }) => (
           <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-shadow overflow-hidden">
-            <div class="bg-gradient-to-br from-[#016490] to-[#014d6e] h-36 flex items-center justify-center">
-              <div class="w-20 h-20 rounded-full bg-white/20 border-4 border-white/40 flex items-center justify-center text-white text-3xl font-extrabold">
-                {initial}
-              </div>
+            <div class="bg-[#016490] flex items-end justify-center min-h-[260px]">
+              {photo ? (
+                <img
+                  src={photo}
+                  alt={`${name} - ${role}`}
+                  class="w-full max-h-[320px] object-contain object-bottom"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="flex items-center justify-center h-[260px] w-full">
+                  <div class="w-20 h-20 rounded-full bg-white/20 border-4 border-white/40 flex items-center justify-center text-white text-3xl font-extrabold">
+                    {initial}
+                  </div>
+                </div>
+              )}
             </div>
             <div class="p-6">
               <h2 class="text-xl font-bold text-slate-900">{name}</h2>
