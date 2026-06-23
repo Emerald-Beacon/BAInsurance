@@ -38,7 +38,7 @@ import Layout from '../layouts/Layout.astro';
         <div class="hidden lg:flex items-center justify-center py-10 pl-6">
           <div class="relative w-full">
             <!-- Offset decorative frame behind the photo -->
-            <div class="absolute inset-0 translate-x-5 translate-y-5 rounded-2xl bg-[#7ebee7]/30 border border-[#7ebee7]/40"></div>
+            <div class="absolute inset-0 translate-x-5 translate-y-5 rounded-2xl bg-[var(--color-navy)] border border-white/10"></div>
             <img
               src="/images/hero/spring-a.jpg"
               alt="Cherry blossoms in spring — B&A Insurance Producers, Bountiful Utah"
@@ -69,14 +69,14 @@ import Layout from '../layouts/Layout.astro';
   <!-- Services Grid -->
   <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-14">
+      <div class="text-center mb-14 reveal">
         <p class="text-[#016490] font-semibold text-sm uppercase tracking-widest mb-2">What We Do</p>
         <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Comprehensive Coverage for Every Stage of Life</h2>
         <p class="mt-4 text-lg text-slate-500 max-w-2xl mx-auto">We represent multiple top-rated carriers so we can match you with the best fit — not just the easiest option.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-        <a href="/personal/" class="group p-8 rounded-2xl border border-slate-100 hover:border-[#7ebee7] hover:shadow-xl transition-all duration-300 bg-white">
+        <a href="/personal/" class="reveal group p-8 rounded-2xl border border-[var(--color-line)] hover:border-[var(--color-brand-light)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-white">
           <div class="w-14 h-14 bg-[#f4f8fb] rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#016490] transition-colors">
             <svg class="w-7 h-7 text-[#016490] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
           </div>
@@ -85,7 +85,7 @@ import Layout from '../layouts/Layout.astro';
           <span class="text-[#016490] font-semibold text-sm flex items-center gap-1">Explore Personal <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
 
-        <a href="/business/" class="group p-8 rounded-2xl border border-slate-100 hover:border-[#7ebee7] hover:shadow-xl transition-all duration-300 bg-white">
+        <a href="/business/" class="reveal group p-8 rounded-2xl border border-[var(--color-line)] hover:border-[var(--color-brand-light)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-white">
           <div class="w-14 h-14 bg-[#f4f8fb] rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#016490] transition-colors">
             <svg class="w-7 h-7 text-[#016490] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
           </div>
@@ -94,7 +94,7 @@ import Layout from '../layouts/Layout.astro';
           <span class="text-[#016490] font-semibold text-sm flex items-center gap-1">Explore Business <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
 
-        <a href="/health/" class="group p-8 rounded-2xl border border-slate-100 hover:border-[#7ebee7] hover:shadow-xl transition-all duration-300 bg-white">
+        <a href="/health/" class="reveal group p-8 rounded-2xl border border-[var(--color-line)] hover:border-[var(--color-brand-light)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-white">
           <div class="w-14 h-14 bg-[#f4f8fb] rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#016490] transition-colors">
             <svg class="w-7 h-7 text-[#016490] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
           </div>
@@ -108,10 +108,10 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <!-- Why Choose Us -->
-  <section class="py-20 bg-[#f4f8fb]">
+  <section class="py-20 bg-[var(--color-bg)]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        <div>
+        <div class="reveal">
           <p class="text-[#016490] font-semibold text-sm uppercase tracking-widest mb-2">Why B&amp;A</p>
           <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-6">Over 40 Years of Honest,<br />Independent Guidance</h2>
           <p class="text-slate-600 leading-relaxed mb-6">
@@ -136,15 +136,17 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <div class="grid grid-cols-1 gap-4">
           {[
-            { icon: '🔍', title: 'We Shop for You', desc: 'Access to dozens of top carriers means we compare so you get the right coverage at the best rate.' },
-            { icon: '🤝', title: 'No Carrier Bias', desc: 'As an independent agency, we work for you — not the insurance company. Your interests come first.' },
-            { icon: '⚡', title: 'Fast, Personal Claims Support', desc: 'When something goes wrong, we\'re on your side helping navigate the claims process quickly.' },
-            { icon: '📍', title: 'Local Utah Expertise', desc: 'We understand Utah\'s unique risks, regulations, and communities because we\'ve been here for decades.' },
-          ].map(({ icon, title, desc }) => (
-            <div class="flex gap-4 bg-white rounded-xl p-5 shadow-sm border border-slate-100">
-              <div class="text-3xl shrink-0">{icon}</div>
+            { title: 'We Shop for You', d: 'M21 21l-5.2-5.2m1.7-4.3a6 6 0 11-12 0 6 6 0 0112 0z', desc: 'Access to dozens of top carriers means we compare so you get the right coverage at the best rate.' },
+            { title: 'No Carrier Bias', d: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z', desc: 'As an independent agency, we work for you — not the insurance company. Your interests come first.' },
+            { title: 'Fast, Personal Claims Support', d: 'M13 10V3L4 14h7v7l9-11h-7z', desc: 'When something goes wrong, we\'re on your side helping navigate the claims process quickly.' },
+            { title: 'Local Utah Expertise', d: 'M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z', desc: 'We understand Utah\'s unique risks, regulations, and communities because we\'ve been here for decades.' },
+          ].map(({ title, d, desc }) => (
+            <div class="reveal flex gap-4 bg-white rounded-xl p-5 shadow-sm border border-[var(--color-line)] transition-shadow hover:shadow-md">
+              <div class="w-11 h-11 shrink-0 rounded-lg bg-[var(--color-bg)] flex items-center justify-center">
+                <svg class="w-6 h-6 text-[var(--color-brand)]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d={d} /></svg>
+              </div>
               <div>
-                <h3 class="font-semibold text-slate-900 mb-1">{title}</h3>
+                <h3 class="font-semibold text-[var(--color-ink)] mb-1">{title}</h3>
                 <p class="text-sm text-slate-500 leading-relaxed">{desc}</p>
               </div>
             </div>
@@ -157,7 +159,7 @@ import Layout from '../layouts/Layout.astro';
   <!-- About Callout -->
   <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="relative rounded-3xl overflow-hidden text-white">
+      <div class="reveal relative rounded-3xl overflow-hidden text-white">
         <img
           src="/images/hero/family-photo.jpg"
           alt="Utah family at the beach"
@@ -183,9 +185,9 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <!-- FAQ / SEO Block -->
-  <section class="py-20 bg-[#f4f8fb]">
+  <section class="py-20 bg-[var(--color-bg)]">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
+      <div class="text-center mb-12 reveal">
         <p class="text-[#016490] font-semibold text-sm uppercase tracking-widest mb-2">Common Questions</p>
         <h2 class="text-3xl font-bold text-slate-900">Insurance Questions, Answered</h2>
       </div>
@@ -211,7 +213,7 @@ import Layout from '../layouts/Layout.astro';
 
   <!-- CTA -->
   <section class="py-20 bg-white">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="reveal max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Ready to Review Your Coverage?</h2>
       <p class="text-lg text-slate-500 mb-8">No pressure, no obligation. Just honest guidance from a local agent who cares.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
