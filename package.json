@@ -9,7 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "sync:blog": "node scripts/sync-blog.mjs",
+    "sync:blog:check": "node scripts/sync-blog.mjs --dry-run"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
