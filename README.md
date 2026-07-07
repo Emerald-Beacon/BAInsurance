@@ -1,29 +1,21 @@
-# Astro Starter Kit: Minimal
+# B&A Insurance Producers — bowthorpeinsurance.com
 
-```sh
-npm create astro@latest -- --template minimal
-```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Static marketing site for B&A Insurance Producers (Bowthorpe & Associates), an
+independent insurance agency in Bountiful, Utah. Built with Astro + Tailwind,
+deployed on Netlify.
 
 ## 🚀 Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
-
 ```text
 /
-├── public/
+├── public/            # logos, favicons, images (served as-is)
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── components/    # Header, Footer
+│   ├── layouts/       # Layout.astro (meta tags, LocalBusiness schema)
+│   ├── data/          # posts.json (blog content)
+│   └── pages/         # one .astro file per route; [slug].astro renders posts
+└── scripts/           # sync-blog.mjs (WordPress backfill)
 ```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
 
 ## 🧞 Commands
 
@@ -46,8 +38,9 @@ Blog posts live in `src/data/posts.json` (one object per post: `title`, `slug`,
 `excerpt`, `content`, `date`). The blog index and each `/<slug>/` page are
 generated from this file at build time.
 
-The live WordPress site, **bowthorpeinsurance.com**, is the source of truth for
-post content. To pull in posts published there but not yet on this site:
+Until the domain cutover, the old WordPress site at **bowthorpeinsurance.com**
+is the source of truth for post content. To pull in posts published there but
+not yet on this site (run one last time right before switching the domain):
 
 ```sh
 npm run sync:blog:check   # preview: shows which posts would be added
@@ -59,7 +52,3 @@ converts each post's HTML to the plain-text paragraph format used here, and only
 **adds** posts whose slug is missing — it never edits or deletes existing
 entries. After running it, review with `git diff`, run `npm run build` to
 confirm the new pages generate, then commit.
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
