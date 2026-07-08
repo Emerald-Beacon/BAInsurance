@@ -12,28 +12,35 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { title, excerpt, content, date, slug } = post;
 
+const SITE = 'https://bowthorpeinsurance.com';
+const postURL = `${SITE}/${slug}/`;
+
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'Article',
+  '@id': `${postURL}#article`,
   headline: title,
   description: excerpt,
   datePublished: date,
-  publisher: {
-    '@type': 'InsuranceAgency',
-    name: 'B&A Insurance Producers',
-    url: 'https://bowthorpeinsurance.com',
-  },
-  author: {
-    '@type': 'Organization',
-    name: 'B&A Insurance Producers',
-  },
-  url: `https://bowthorpeinsurance.com/${slug}/`,
+  dateModified: date,
+  image: `${SITE}/logo-round.png`,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': `${postURL}#webpage` },
+  publisher: { '@id': `${SITE}/#agency` },
+  author: { '@id': `${SITE}/#agency` },
+  url: postURL,
 };
+
+const breadcrumbs = [
+  { name: 'Home', url: `${SITE}/` },
+  { name: 'Blog', url: `${SITE}/blog/` },
+  { name: title, url: postURL },
+];
 ---
 <Layout
   title={title}
   description={excerpt}
   schema={articleSchema}
+  breadcrumbs={breadcrumbs}
 >
   <article>
     <section class="bg-[#016490] text-white py-16">
