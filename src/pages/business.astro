@@ -12,10 +12,40 @@ const coverages = [
   { icon: ClipboardCheck, title: 'Surety Bonds', desc: 'License bonds, contract bonds, and court bonds for contractors, professionals, and businesses requiring bonding.' },
   { icon: Lock, title: 'Cyber Liability', desc: 'Covers your business from data breaches, ransomware attacks, and cyber incidents that can disrupt operations and expose sensitive data.' },
 ];
+
+const faqs = [
+  { q: 'What\'s the minimum insurance a Utah business needs?', a: 'Most Utah businesses with employees are required to carry workers\' compensation. Beyond that, your lender, landlord, or contracts may require general liability. We help you identify what\'s required and what\'s recommended for your specific industry.' },
+  { q: 'What does a BOP (Business Owner\'s Policy) include?', a: 'A BOP bundles general liability and commercial property into a single, usually discounted policy. It\'s ideal for small to mid-sized businesses. We\'ll assess whether a BOP or individual policies make more sense for your situation.' },
+  { q: 'Do I need professional liability if I have general liability?', a: 'Yes — general liability covers physical risks, while professional liability (E&O) covers claims of negligence in your services or advice. Both are needed for most professional service providers.' },
+];
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://bowthorpeinsurance.com/business/#service',
+      name: 'Business Insurance',
+      serviceType: 'Business insurance: general liability, commercial property, commercial auto, workers\' compensation, professional liability, surety bonds, and cyber liability',
+      url: 'https://bowthorpeinsurance.com/business/',
+      provider: { '@id': 'https://bowthorpeinsurance.com/#agency' },
+      areaServed: { '@type': 'State', name: 'Utah' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(({ q, a }) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    },
+  ],
+};
 ---
 <Layout
   title="Business Insurance"
   description="Business insurance in Bountiful, Utah. B&A Insurance Producers offers general liability, commercial property, workers comp, professional liability, bonds, and more. Call (801) 487-2300."
+  schema={pageSchema}
 >
   <section class="relative bg-[#016490] text-white py-20 overflow-hidden">
     <img
@@ -83,11 +113,7 @@ const coverages = [
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-slate-900 text-center mb-10">Business Insurance FAQs</h2>
       <div class="space-y-4">
-        {[
-          { q: 'What\'s the minimum insurance a Utah business needs?', a: 'Most Utah businesses with employees are required to carry workers\' compensation. Beyond that, your lender, landlord, or contracts may require general liability. We help you identify what\'s required and what\'s recommended for your specific industry.' },
-          { q: 'What does a BOP (Business Owner\'s Policy) include?', a: 'A BOP bundles general liability and commercial property into a single, usually discounted policy. It\'s ideal for small to mid-sized businesses. We\'ll assess whether a BOP or individual policies make more sense for your situation.' },
-          { q: 'Do I need professional liability if I have general liability?', a: 'Yes — general liability covers physical risks, while professional liability (E&O) covers claims of negligence in your services or advice. Both are needed for most professional service providers.' },
-        ].map(({ q, a }) => (
+        {faqs.map(({ q, a }) => (
           <details class="bg-[#f4f8fb] rounded-xl border border-slate-100 shadow-sm group">
             <summary class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-slate-900 list-none">
               {q}

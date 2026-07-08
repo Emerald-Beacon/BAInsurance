@@ -12,10 +12,41 @@ const coverages = [
   { id: 'atv', icon: Truck, title: 'ATV & Off-Road Insurance', desc: 'Protect your ATV, UTV, or dirt bike with coverage designed for off-road adventures. We offer liability, collision, and comprehensive options.' },
   { id: 'life', icon: HeartPulse, title: 'Life Insurance', desc: 'Term or permanent life insurance to protect your family\'s financial future. We\'ll help you understand your options and find the right coverage for your situation.' },
 ];
+
+const faqs = [
+  { q: 'Do I need more than the minimum auto coverage in Utah?', a: 'Utah\'s minimum liability requirements are relatively low. If you have assets to protect — a home, savings, retirement accounts — carrying higher limits and an umbrella policy is strongly recommended. We\'ll help you understand your real exposure.' },
+  { q: 'How much home insurance do I need?', a: 'Your dwelling coverage should be based on the cost to rebuild your home, not its market value. We\'ll help you identify the right amount, including coverage for your personal property, liability, and loss of use.' },
+  { q: 'What\'s the benefit of bundling home and auto?', a: 'Bundling with a single carrier typically saves 10–25% on premiums. It also simplifies your billing and claims experience. That said, sometimes separate carriers are still the better value — and we\'ll always tell you which is which.' },
+  { q: 'Can you help if I\'ve had accidents or violations?', a: 'Yes. We work with carriers that specialize in nonstandard and high-risk auto insurance. We\'ll find the best available rate for your situation without judgment.' },
+];
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://bowthorpeinsurance.com/personal/#service',
+      name: 'Personal Insurance',
+      serviceType: 'Personal insurance: home, auto, umbrella, motorcycle, boat, RV, ATV, and life insurance',
+      url: 'https://bowthorpeinsurance.com/personal/',
+      provider: { '@id': 'https://bowthorpeinsurance.com/#agency' },
+      areaServed: { '@type': 'State', name: 'Utah' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(({ q, a }) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    },
+  ],
+};
 ---
 <Layout
   title="Personal Insurance"
   description="Personal insurance in Bountiful, Utah. B&A Insurance Producers offers home, auto, umbrella, motorcycle, boat, RV, ATV, and life insurance from multiple top carriers. Call (801) 487-2300."
+  schema={pageSchema}
 >
   <section class="relative bg-[#016490] text-white py-20 overflow-hidden">
     <img
@@ -61,12 +92,7 @@ const coverages = [
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-slate-900 text-center mb-10">Personal Insurance FAQs</h2>
       <div class="space-y-4">
-        {[
-          { q: 'Do I need more than the minimum auto coverage in Utah?', a: 'Utah\'s minimum liability requirements are relatively low. If you have assets to protect — a home, savings, retirement accounts — carrying higher limits and an umbrella policy is strongly recommended. We\'ll help you understand your real exposure.' },
-          { q: 'How much home insurance do I need?', a: 'Your dwelling coverage should be based on the cost to rebuild your home, not its market value. We\'ll help you identify the right amount, including coverage for your personal property, liability, and loss of use.' },
-          { q: 'What\'s the benefit of bundling home and auto?', a: 'Bundling with a single carrier typically saves 10–25% on premiums. It also simplifies your billing and claims experience. That said, sometimes separate carriers are still the better value — and we\'ll always tell you which is which.' },
-          { q: 'Can you help if I\'ve had accidents or violations?', a: 'Yes. We work with carriers that specialize in nonstandard and high-risk auto insurance. We\'ll find the best available rate for your situation without judgment.' },
-        ].map(({ q, a }) => (
+        {faqs.map(({ q, a }) => (
           <details class="bg-white rounded-xl border border-slate-100 shadow-sm group">
             <summary class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-slate-900 list-none">
               {q}

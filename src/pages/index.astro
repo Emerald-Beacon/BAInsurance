@@ -27,11 +27,30 @@ const carriers = [
   { src: '/images/carriers/healthcare-gov.avif', alt: 'HealthCare.gov' },
   { src: '/images/carriers/aarp.avif', alt: 'AARP' },
 ];
+
+const faqs = [
+  { q: 'What is an independent insurance agent?', a: 'An independent agent like B&A Insurance Producers works with multiple insurance carriers, not just one. This means we can compare coverage options and rates from dozens of top companies to find the best fit for your specific needs and budget.' },
+  { q: 'Do you serve areas outside of Bountiful, Utah?', a: 'Yes. While our office is in Bountiful, we serve clients throughout Utah including Salt Lake City, Ogden, Provo, and surrounding communities. We can often assist clients remotely by phone and email.' },
+  { q: 'How do I get a quote?', a: 'Call us at (801) 487-2300 or use our contact form. One of our licensed agents will gather some basic information and provide you with options from our carrier network — at no cost or obligation.' },
+  { q: 'What types of insurance does B&A offer?', a: 'We offer personal insurance (home, auto, umbrella, motorcycle, boat, RV, ATV), business insurance (general liability, property, workers comp, professional liability, bonds), and health insurance (individual plans, group plans, Medicare Supplement, Medicare Advantage, and Part D).' },
+  { q: 'What does "Trusted Choice" mean?', a: '"Trusted Choice" is a designation from the Independent Insurance Agents & Brokers of America. It indicates that the agency is independent, represents multiple carriers, and is committed to customer service excellence.' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
 ---
 
 <Layout
   title="B&A Insurance Producers | Independent Insurance Agency in Bountiful, Utah"
   description="B&A Insurance Producers (Bowthorpe & Associates) is Bountiful, Utah's trusted independent insurance agency. Personal, business, and health insurance from top carriers since the early 1980s. Call (801) 487-2300."
+  schema={faqSchema}
 >
 
   <!-- Hero -->
@@ -251,13 +270,7 @@ const carriers = [
         <h2 class="text-3xl font-bold text-slate-900">Insurance Questions, Answered</h2>
       </div>
       <div class="space-y-4">
-        {[
-          { q: 'What is an independent insurance agent?', a: 'An independent agent like B&A Insurance Producers works with multiple insurance carriers, not just one. This means we can compare coverage options and rates from dozens of top companies to find the best fit for your specific needs and budget.' },
-          { q: 'Do you serve areas outside of Bountiful, Utah?', a: 'Yes. While our office is in Bountiful, we serve clients throughout Utah including Salt Lake City, Ogden, Provo, and surrounding communities. We can often assist clients remotely by phone and email.' },
-          { q: 'How do I get a quote?', a: 'Call us at (801) 487-2300 or use our contact form. One of our licensed agents will gather some basic information and provide you with options from our carrier network — at no cost or obligation.' },
-          { q: 'What types of insurance does B&A offer?', a: 'We offer personal insurance (home, auto, umbrella, motorcycle, boat, RV, ATV), business insurance (general liability, property, workers comp, professional liability, bonds), and health insurance (individual plans, group plans, Medicare Supplement, Medicare Advantage, and Part D).' },
-          { q: 'What does "Trusted Choice" mean?', a: '"Trusted Choice" is a designation from the Independent Insurance Agents & Brokers of America. It indicates that the agency is independent, represents multiple carriers, and is committed to customer service excellence.' },
-        ].map(({ q, a }) => (
+        {faqs.map(({ q, a }) => (
           <details class="bg-white rounded-xl border border-slate-100 shadow-sm group">
             <summary class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-slate-900 list-none">
               {q}

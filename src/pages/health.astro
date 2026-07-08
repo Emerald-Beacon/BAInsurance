@@ -10,10 +10,41 @@ const plans = [
   { icon: Pill, title: 'Medicare Part D', desc: 'Prescription drug coverage that works alongside your Medicare plan. We review your medications and help you find the most cost-effective plan.*' },
   { icon: HeartPulse, title: 'Life Insurance', desc: 'Term and permanent life insurance to protect your family\'s financial future. We compare options to match your coverage needs and budget.' },
 ];
+
+const faqs = [
+  { q: 'When can I enroll in health insurance?', a: 'The ACA Open Enrollment Period typically runs November 1 – January 15 for coverage beginning January 1. Outside of open enrollment, you may qualify for a Special Enrollment Period due to life events like losing employer coverage, getting married, or having a baby. Medicare has its own enrollment windows.' },
+  { q: 'What\'s the difference between Medicare Advantage and Medicare Supplement?', a: 'Medicare Supplement (Medigap) works alongside Original Medicare and helps cover out-of-pocket costs like deductibles and copays. Medicare Advantage replaces Original Medicare with an all-in-one plan, often including extra benefits like dental and vision. Both have tradeoffs — we\'ll help you choose the right fit.' },
+  { q: 'Can B&A help me find a group plan for my small business?', a: 'Yes. We specialize in helping small and mid-sized Utah businesses design competitive group health plans that fit their budget. Offering benefits helps attract and retain employees, and we\'ll walk you through all your options.' },
+  { q: 'Is your health guidance free?', a: 'Yes. Our agents are compensated by the insurance carriers — never by the client. You get professional guidance at no cost to you.' },
+];
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://bowthorpeinsurance.com/health/#service',
+      name: 'Health Insurance',
+      serviceType: 'Health insurance: individual and group health plans, Medicare Supplement, Medicare Advantage, Medicare Part D, and life insurance',
+      url: 'https://bowthorpeinsurance.com/health/',
+      provider: { '@id': 'https://bowthorpeinsurance.com/#agency' },
+      areaServed: { '@type': 'State', name: 'Utah' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(({ q, a }) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    },
+  ],
+};
 ---
 <Layout
   title="Health Insurance"
   description="Health insurance in Bountiful, Utah. B&A Insurance Producers offers individual plans, group plans, Medicare Supplement, Medicare Advantage, Part D, and life insurance. Call (801) 487-2300."
+  schema={pageSchema}
 >
   <section class="relative bg-[#016490] text-white py-20 overflow-hidden">
     <img
@@ -71,12 +102,7 @@ const plans = [
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-slate-900 text-center mb-10">Health Insurance FAQs</h2>
       <div class="space-y-4">
-        {[
-          { q: 'When can I enroll in health insurance?', a: 'The ACA Open Enrollment Period typically runs November 1 – January 15 for coverage beginning January 1. Outside of open enrollment, you may qualify for a Special Enrollment Period due to life events like losing employer coverage, getting married, or having a baby. Medicare has its own enrollment windows.' },
-          { q: 'What\'s the difference between Medicare Advantage and Medicare Supplement?', a: 'Medicare Supplement (Medigap) works alongside Original Medicare and helps cover out-of-pocket costs like deductibles and copays. Medicare Advantage replaces Original Medicare with an all-in-one plan, often including extra benefits like dental and vision. Both have tradeoffs — we\'ll help you choose the right fit.' },
-          { q: 'Can B&A help me find a group plan for my small business?', a: 'Yes. We specialize in helping small and mid-sized Utah businesses design competitive group health plans that fit their budget. Offering benefits helps attract and retain employees, and we\'ll walk you through all your options.' },
-          { q: 'Is your health guidance free?', a: 'Yes. Our agents are compensated by the insurance carriers — never by the client. You get professional guidance at no cost to you.' },
-        ].map(({ q, a }) => (
+        {faqs.map(({ q, a }) => (
           <details class="bg-[#f4f8fb] rounded-xl border border-slate-100 shadow-sm group">
             <summary class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-slate-900 list-none">
               {q}
