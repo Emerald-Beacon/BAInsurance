@@ -29,6 +29,15 @@ const HEADERS = {
 
 const dryRun = process.argv.includes('--dry-run');
 
+// Live posts we deliberately do NOT mirror. Each entry should explain why and,
+// if the post was replaced, point at the local slug that superseded it.
+const EXCLUDED_SLUGS = new Set([
+  // Wrong market (Idaho Falls); rewritten locally as
+  // why-choosing-an-independent-home-insurance-agency-in-bountiful-utah-is-a-smart-move
+  // with a 301 in public/_redirects.
+  'why-choosing-an-independent-home-insurance-agency-in-idaho-falls-is-a-smart-move',
+]);
+
 const NAMED_ENTITIES = {
   amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ',
   hellip: '…', mdash: '—', ndash: '–', rsquo: '’', lsquo: '‘',
@@ -97,7 +106,7 @@ async function main() {
   console.log(`Live site: ${live.length} posts · local: ${existing.length} posts`);
 
   const missing = live
-    .filter((p) => p.slug && !existingSlugs.has(p.slug))
+    .filter((p) => p.slug && !existingSlugs.has(p.slug) && !EXCLUDED_SLUGS.has(p.slug))
     .map((p) => {
       const content = htmlToParagraphs(p.content?.rendered ?? '');
       return {
