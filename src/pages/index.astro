@@ -1,6 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Handshake, MapPin, MapPinned, Search, Zap } from '@lucide/astro';
+
+const carriers = [
+  { src: '/images/carriers/liberty-mutual.png', alt: 'Liberty Mutual' },
+  { src: '/images/carriers/travelers.png', alt: 'Travelers' },
+  { src: '/images/carriers/nationwide.png', alt: 'Nationwide' },
+  { src: '/images/carriers/progressive.avif', alt: 'Progressive' },
+  { src: '/images/carriers/safeco.avif', alt: 'Safeco' },
+  { src: '/images/carriers/chubb.png', alt: 'Chubb' },
+  { src: '/images/carriers/hagerty.avif', alt: 'Hagerty' },
+  { src: '/images/carriers/amig.avif', alt: 'American Modern' },
+  { src: '/images/carriers/hiscox.avif', alt: 'Hiscox' },
+  { src: '/images/carriers/markel2.webp', alt: 'Markel' },
+  { src: '/images/carriers/united-healthcare.png', alt: 'UnitedHealthcare' },
+  { src: '/images/carriers/select-health.png', alt: 'SelectHealth' },
+  { src: '/images/carriers/aetna.avif', alt: 'Aetna' },
+  { src: '/images/carriers/cigna.avif', alt: 'Cigna' },
+  { src: '/images/carriers/bcbs-utah.avif', alt: 'Blue Cross Blue Shield of Utah' },
+  { src: '/images/carriers/aarp.avif', alt: 'AARP' },
+];
 ---
 
 <Layout
@@ -107,6 +126,33 @@ import { Handshake, MapPin, MapPinned, Search, Zap } from '@lucide/astro';
           <span class="text-[#016490] font-semibold text-sm flex items-center gap-1">Explore Health <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- Carrier Logo Carousel -->
+  <section class="py-14 bg-white border-t border-slate-100" aria-label="Insurance carriers we work with">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold text-slate-400 uppercase tracking-widest mb-8">Carriers We Work With</p>
+    </div>
+    <div class="logo-marquee" role="presentation">
+      <div class="logo-marquee-track">
+        {[false, true].map((decorative) => (
+          <ul class="logo-marquee-row" aria-hidden={decorative}>
+            {carriers.map(({ src, alt }) => (
+              <li>
+                <img
+                  src={src}
+                  alt={decorative ? '' : alt}
+                  class="h-8 w-auto object-contain grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100"
+                  width="120"
+                  height="32"
+                  loading="lazy"
+                />
+              </li>
+            ))}
+          </ul>
+        ))}
       </div>
     </div>
   </section>
@@ -228,3 +274,41 @@ import { Handshake, MapPin, MapPinned, Search, Zap } from '@lucide/astro';
   </section>
 
 </Layout>
+
+<style>
+  .logo-marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+  .logo-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: logo-scroll 45s linear infinite;
+  }
+  .logo-marquee:hover .logo-marquee-track {
+    animation-play-state: paused;
+  }
+  .logo-marquee-row {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    padding: 0 2rem;
+    list-style: none;
+    margin: 0;
+  }
+  @keyframes logo-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .logo-marquee {
+      overflow-x: auto;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+    .logo-marquee-track {
+      animation: none;
+    }
+  }
+</style>
