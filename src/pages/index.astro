@@ -154,7 +154,8 @@ const carriers = [
                   class="h-8 w-auto object-contain grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100"
                   width="120"
                   height="32"
-                  loading="lazy"
+                  loading="eager"
+                  decoding="async"
                 />
               </li>
             ))}
@@ -291,7 +292,8 @@ const carriers = [
   .logo-marquee-track {
     display: flex;
     width: max-content;
-    animation: logo-scroll 45s linear infinite;
+    animation: logo-scroll 70s linear infinite;
+    will-change: transform;
   }
   .logo-marquee:hover .logo-marquee-track {
     animation-play-state: paused;
@@ -305,8 +307,8 @@ const carriers = [
     margin: 0;
   }
   @keyframes logo-scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
   }
   @media (prefers-reduced-motion: reduce) {
     .logo-marquee {
