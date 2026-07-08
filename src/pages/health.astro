@@ -15,8 +15,20 @@ const plans = [
   title="Health Insurance"
   description="Health insurance in Bountiful, Utah. B&A Insurance Producers offers individual plans, group plans, Medicare Supplement, Medicare Advantage, Part D, and life insurance. Call (801) 487-2300."
 >
-  <section class="bg-[#016490] text-white py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="relative bg-[#016490] text-white py-20 overflow-hidden">
+    <img
+      src="/images/hero/health-header.jpg"
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 h-full w-full object-cover"
+      style="object-position: center 22%;"
+      width="1920"
+      height="1080"
+      fetchpriority="high"
+    />
+    <div class="absolute inset-0 bg-[#7ebee7]/20"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#016490]/95 via-[#016490]/80 to-[#7ebee7]/45"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <p class="text-[#7ebee7] font-semibold text-sm uppercase tracking-widest mb-3">Health Coverage</p>
       <h1 class="text-4xl sm:text-5xl font-extrabold mb-6">Health Insurance<br /><span class="text-[#7ebee7]">Plans That Fit Your Needs</span></h1>
       <p class="text-white/80 text-xl max-w-2xl leading-relaxed mb-8">Whether you need an individual plan, group coverage for your business, or help navigating Medicare, our licensed health agents are here to match you with the right carrier.</p>
