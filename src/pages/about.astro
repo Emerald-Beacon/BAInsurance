@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { LockOpen, Phone, ShieldCheck, UsersRound } from '@lucide/astro';
 ---
 <Layout
   title="About Us"
@@ -55,13 +56,15 @@ import Layout from '../layouts/Layout.astro';
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { icon: '🤝', title: 'Integrity', desc: 'We tell you the truth about coverage — even when a less expensive option isn\'t always the right one.' },
-          { icon: '🔓', title: 'Independence', desc: 'No carrier loyalty. We represent you, not the insurance company.' },
-          { icon: '👨‍👩‍👧', title: 'Community', desc: 'Bountiful is our home. We\'ve built relationships here for over 40 years.' },
-          { icon: '📞', title: 'Accessibility', desc: 'When you call, you reach a real agent who knows your name and your policy.' },
-        ].map(({ icon, title, desc }) => (
+          { icon: ShieldCheck, title: 'Integrity', desc: 'We tell you the truth about coverage — even when a less expensive option isn\'t always the right one.' },
+          { icon: LockOpen, title: 'Independence', desc: 'No carrier loyalty. We represent you, not the insurance company.' },
+          { icon: UsersRound, title: 'Community', desc: 'Bountiful is our home. We\'ve built relationships here for over 40 years.' },
+          { icon: Phone, title: 'Accessibility', desc: 'When you call, you reach a real agent who knows your name and your policy.' },
+        ].map(({ icon: Icon, title, desc }) => (
           <div class="bg-white rounded-2xl p-8 text-center shadow-sm border border-slate-100">
-            <div class="text-4xl mb-4">{icon}</div>
+            <div class="w-12 h-12 rounded-xl bg-[#f4f8fb] border border-slate-100 flex items-center justify-center mx-auto mb-4 text-[#016490]">
+              <Icon class="w-7 h-7" aria-hidden="true" />
+            </div>
             <h3 class="font-bold text-slate-900 text-lg mb-3">{title}</h3>
             <p class="text-slate-500 text-sm leading-relaxed">{desc}</p>
           </div>

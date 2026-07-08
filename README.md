@@ -4,7 +4,7 @@ Static marketing site for B&A Insurance Producers (Bowthorpe & Associates), an
 independent insurance agency in Bountiful, Utah. Built with Astro + Tailwind,
 deployed on Netlify.
 
-## 🚀 Project Structure
+## Project Structure
 
 ```text
 /
@@ -17,7 +17,7 @@ deployed on Netlify.
 └── scripts/           # sync-blog.mjs (WordPress backfill)
 ```
 
-## 🧞 Commands
+## Commands
 
 All commands are run from the root of the project, from a terminal:
 
@@ -32,7 +32,7 @@ All commands are run from the root of the project, from a terminal:
 | `npm run sync:blog:check` | List live posts missing locally (writes nothing) |
 | `npm run sync:blog`       | Backfill any missing blog posts into `posts.json`|
 
-## ✍️ Blog content
+## Blog content
 
 Blog posts live in `src/data/posts.json` (one object per post: `title`, `slug`,
 `excerpt`, `content`, `date`). The blog index and each `/<slug>/` page are

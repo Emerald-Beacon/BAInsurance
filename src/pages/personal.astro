@@ -1,14 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Bike, Car, Caravan, HeartPulse, Home, Sailboat, Truck, Umbrella } from '@lucide/astro';
+
 const coverages = [
-  { id: 'home', icon: '🏠', title: 'Homeowners Insurance', desc: 'Protect your home and belongings from fire, theft, weather damage, liability, and more. We compare top carriers to find the right fit for your property and budget.' },
-  { id: 'auto', icon: '🚗', title: 'Auto Insurance', desc: 'From minimum state requirements to comprehensive coverage, we help Utah drivers find affordable auto policies — including high-risk and SR-22 situations.' },
-  { id: 'umbrella', icon: '☂️', title: 'Umbrella Insurance', desc: 'An extra layer of liability protection above your home and auto limits. One umbrella policy can protect your savings, home, and future income from major claims.' },
-  { id: 'motorcycle', icon: '🏍️', title: 'Motorcycle Insurance', desc: 'Customized coverage for your bike whether you\'re a weekend rider or a daily commuter. We cover liability, collision, comprehensive, and accessories.' },
-  { id: 'boat', icon: '⛵', title: 'Boat & Watercraft Insurance', desc: 'From fishing boats to jet skis, we offer coverage for your watercraft on Utah\'s lakes and reservoirs — including liability, physical damage, and emergency assistance.' },
-  { id: 'rv', icon: '🚐', title: 'RV & Motorhome Insurance', desc: 'Whether your RV is parked or on the road, we\'ll find coverage that fits your travel lifestyle — full-timers and seasonal campers alike.' },
-  { id: 'atv', icon: '🛻', title: 'ATV & Off-Road Insurance', desc: 'Protect your ATV, UTV, or dirt bike with coverage designed for off-road adventures. We offer liability, collision, and comprehensive options.' },
-  { id: 'life', icon: '💛', title: 'Life Insurance', desc: 'Term or permanent life insurance to protect your family\'s financial future. We\'ll help you understand your options and find the right coverage for your situation.' },
+  { id: 'home', icon: Home, title: 'Homeowners Insurance', desc: 'Protect your home and belongings from fire, theft, weather damage, liability, and more. We compare top carriers to find the right fit for your property and budget.' },
+  { id: 'auto', icon: Car, title: 'Auto Insurance', desc: 'From minimum state requirements to comprehensive coverage, we help Utah drivers find affordable auto policies — including high-risk and SR-22 situations.' },
+  { id: 'umbrella', icon: Umbrella, title: 'Umbrella Insurance', desc: 'An extra layer of liability protection above your home and auto limits. One umbrella policy can protect your savings, home, and future income from major claims.' },
+  { id: 'motorcycle', icon: Bike, title: 'Motorcycle Insurance', desc: 'Customized coverage for your bike whether you\'re a weekend rider or a daily commuter. We cover liability, collision, comprehensive, and accessories.' },
+  { id: 'boat', icon: Sailboat, title: 'Boat & Watercraft Insurance', desc: 'From fishing boats to jet skis, we offer coverage for your watercraft on Utah\'s lakes and reservoirs — including liability, physical damage, and emergency assistance.' },
+  { id: 'rv', icon: Caravan, title: 'RV & Motorhome Insurance', desc: 'Whether your RV is parked or on the road, we\'ll find coverage that fits your travel lifestyle — full-timers and seasonal campers alike.' },
+  { id: 'atv', icon: Truck, title: 'ATV & Off-Road Insurance', desc: 'Protect your ATV, UTV, or dirt bike with coverage designed for off-road adventures. We offer liability, collision, and comprehensive options.' },
+  { id: 'life', icon: HeartPulse, title: 'Life Insurance', desc: 'Term or permanent life insurance to protect your family\'s financial future. We\'ll help you understand your options and find the right coverage for your situation.' },
 ];
 ---
 <Layout
@@ -31,9 +33,11 @@ const coverages = [
         <p class="mt-3 text-slate-500 max-w-xl mx-auto">From your home to your boat to your family's future, we have coverage for every part of your personal life.</p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {coverages.map(({ id, icon, title, desc }) => (
+        {coverages.map(({ id, icon: Icon, title, desc }) => (
           <div id={id} class="bg-[#f4f8fb] rounded-2xl p-6 border border-slate-100 hover:shadow-md transition-shadow">
-            <div class="text-4xl mb-4">{icon}</div>
+            <div class="w-12 h-12 rounded-xl bg-white border border-slate-100 flex items-center justify-center mb-4 text-[#016490]">
+              <Icon class="w-7 h-7" aria-hidden="true" />
+            </div>
             <h3 class="font-bold text-slate-900 mb-2">{title}</h3>
             <p class="text-sm text-slate-500 leading-relaxed">{desc}</p>
           </div>
