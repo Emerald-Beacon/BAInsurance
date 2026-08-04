@@ -12,6 +12,7 @@ interface Props {
   title: string;
   description?: string;
   canonical?: string;
+  image?: string;
   schema?: object;
   breadcrumbs?: Breadcrumb[];
 }
@@ -20,12 +21,15 @@ const {
   title,
   description = 'B&A Insurance Producers is an independent insurance agency in Bountiful, Utah offering personal, business, and health insurance from top carriers since the early 1980s.',
   canonical,
+  image,
   schema,
   breadcrumbs,
 } = Astro.props;
 
 const SITE = 'https://bowthorpeinsurance.com';
 const canonicalURL = canonical ?? Astro.url.href;
+// Per-page social image (e.g. a blog hero); defaults to the agency logo.
+const ogImage = image ? `${SITE}${image}` : `${SITE}/logo-round.png`;
 const fullTitle = title.includes('B&A') ? title : `${title} | B&A Insurance Producers`;
 
 // Default breadcrumb trail: Home > current page. Pages can pass a
@@ -132,9 +136,10 @@ const localBusinessSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://bowthorpeinsurance.com/logo-round.png" />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:site_name" content="B&A Insurance Producers" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

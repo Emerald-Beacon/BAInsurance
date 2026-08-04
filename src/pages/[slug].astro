@@ -10,10 +10,13 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { title, excerpt, content, date, slug } = post;
+const { title, excerpt, content, date, slug, image, imageAlt, imageCredit } = post;
 
 const SITE = 'https://bowthorpeinsurance.com';
 const postURL = `${SITE}/${slug}/`;
+// Posts published after Aug 2026 carry a self-hosted hero image; older
+// posts fall back to the agency logo for the schema/social image.
+const schemaImage = image ? `${SITE}${image}` : `${SITE}/logo-round.png`;
 
 const articleSchema = {
   '@context': 'https://schema.org',
@@ -23,7 +26,7 @@ const articleSchema = {
   description: excerpt,
   datePublished: date,
   dateModified: date,
-  image: `${SITE}/logo-round.png`,
+  image: schemaImage,
   mainEntityOfPage: { '@type': 'WebPage', '@id': `${postURL}#webpage` },
   publisher: { '@id': `${SITE}/#agency` },
   author: { '@id': `${SITE}/#agency` },
@@ -39,6 +42,7 @@ const breadcrumbs = [
 <Layout
   title={title}
   description={excerpt}
+  image={image}
   schema={articleSchema}
   breadcrumbs={breadcrumbs}
 >
@@ -53,6 +57,22 @@ const breadcrumbs = [
         <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight">{title}</h1>
       </div>
     </section>
+
+    {image && (
+      <figure class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
+        <img
+          src={image}
+          alt={imageAlt ?? title}
+          width="896"
+          height="504"
+          loading="eager"
+          class="w-full aspect-[16/9] object-cover rounded-2xl shadow-lg"
+        />
+        {imageCredit && (
+          <figcaption class="mt-2 text-xs text-slate-400 text-right">{imageCredit}</figcaption>
+        )}
+      </figure>
+    )}
 
     <section class="py-16 bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
