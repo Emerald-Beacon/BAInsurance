@@ -1,2 +1,11 @@
 # Old WordPress URLs that changed on this site
 /why-choosing-an-independent-home-insurance-agency-in-idaho-falls-is-a-smart-move/ /why-choosing-an-independent-home-insurance-agency-in-bountiful-utah-is-a-smart-move/ 301
+
+# WordPress-era blog pagination. The Astro /blog/ index renders every post on a
+# single page, so the content of each old page N is present at /blog/ — these are
+# real destination matches, not soft 404s. Confirmed indexed: /blog/page/7/
+# appeared in a live SERP on 2026-08-25 while returning 404.
+/blog/page/*  /blog/  301
+
+# WordPress feed -> the Astro RSS feed added in dd34315.
+/feed/*  /rss.xml  301
