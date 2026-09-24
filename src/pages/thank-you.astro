@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="Thank You"
+  description="Thank you for contacting B&A Insurance Producers. A licensed agent will follow up within one business day."
+>
+  <section class="bg-[#016490] text-white py-24">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-white/10 mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <h1 class="text-4xl font-extrabold">Thank You!</h1>
+      <p class="text-white/80 mt-4 text-lg">Your message has been received. A licensed agent will follow up within one business day.</p>
+      <p class="text-white/70 mt-2">Need something sooner? Call us at <a href="tel:8014872300" class="underline hover:text-white">(801) 487-2300</a>.</p>
+      <a href="/" class="inline-block mt-8 px-6 py-3 bg-white text-[#016490] font-bold rounded-lg hover:bg-slate-100 transition-colors text-sm">
+        Back to Home
+      </a>
+    </div>
+  </section>
+
+  <script>
+    if (typeof (window as any).fbq === 'function') {
+      (window as any).fbq('track', 'Lead');
+    }
+  </script>
+</Layout>
