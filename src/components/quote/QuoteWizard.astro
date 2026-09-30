@@ -112,6 +112,19 @@ const input = 'w-full px-4 py-3 border border-slate-200 rounded-lg bg-white text
   </section>
 </form>
 
+<script>
+  import { initQuoteWizard } from '../../scripts/quote-wizard';
+  const form = document.getElementById('quote-form');
+  if (form instanceof HTMLFormElement) {
+    try {
+      initQuoteWizard(form);
+    } catch (error) {
+      // The plain form still submits; never let a controller fault break it.
+      console.error('[quote] wizard init failed; plain form retained', error);
+    }
+  }
+</script>
+
 <style>
   /* Only once the controller has taken over does the form become stepped.
      Without JS every section stays visible and the form submits as one page. */
