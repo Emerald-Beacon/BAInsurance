@@ -48,3 +48,34 @@ describe('quote-lines data integrity', () => {
     expect(lineById('nope')).toBeUndefined();
   });
 });
+
+describe('landing page copy', () => {
+  it('gives every landing line complete SEO copy', () => {
+    for (const line of LANDING_LINES) {
+      expect(line.seo, `${line.id} needs seo`).toBeTruthy();
+      expect(line.seo!.title.length).toBeGreaterThan(20);
+      expect(line.seo!.description.length).toBeGreaterThan(70);
+      expect(line.seo!.description.length).toBeLessThan(161);
+      expect(line.seo!.h1.length).toBeGreaterThan(10);
+      expect(line.seo!.intro.length).toBeGreaterThan(200);
+    }
+  });
+
+  it('gives every landing line at least two FAQs', () => {
+    for (const line of LANDING_LINES) {
+      expect(line.faqs?.length ?? 0).toBeGreaterThanOrEqual(2);
+    }
+  });
+
+  it('writes distinct intro copy for every landing line', () => {
+    const intros = LANDING_LINES.map((l) => l.seo!.intro);
+    expect(new Set(intros).size).toBe(intros.length);
+    for (const intro of intros) {
+      const others = intros.filter((i) => i !== intro);
+      for (const other of others) {
+        const shared = intro.slice(0, 120);
+        expect(other.includes(shared)).toBe(false);
+      }
+    }
+  });
+});
