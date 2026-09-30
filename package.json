@@ -10,6 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "sync:blog": "node scripts/sync-blog.mjs",
     "sync:blog:check": "node scripts/sync-blog.mjs --dry-run"
   },
@@ -21,5 +23,8 @@
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.7",
     "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.11"
   }
 }
