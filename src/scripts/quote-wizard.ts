@@ -2,6 +2,7 @@ import { composeLeadSummary } from '../lib/lead-summary';
 import { validateContactStep, normalizePhone, isValidZip, isUtahZip } from '../lib/quote-validation';
 import { makeLeadId, parseUtm, UTM_KEYS } from '../lib/lead-context';
 import { lineById } from '../data/quote-lines';
+import { armPartialCapture } from './quote-partial';
 
 type Values = Record<string, string | string[]>;
 
@@ -189,6 +190,13 @@ export function initQuoteWizard(form: HTMLFormElement): void {
       form.action = `/thank-you/?line=${encodeURIComponent(lineId)}`;
     }
   });
+
+  // A visitor who gave us a name and number and then left is a real lead.
+  armPartialCapture(
+    form,
+    () => validateContactStep(collectValues(form) as Record<string, string>).length === 0,
+    () => collectValues(form),
+  );
 
   if (preset) applyLineSelection(form, preset);
   form.setAttribute('data-wizard-ready', '');
