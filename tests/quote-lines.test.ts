@@ -79,3 +79,21 @@ describe('landing page copy', () => {
     }
   });
 });
+
+import { quoteHref } from '../src/data/quote-lines';
+
+describe('quoteHref', () => {
+  it('links landing lines to their own page', () => {
+    expect(quoteHref('boat')).toBe('/quote/boat/');
+    expect(quoteHref('small-group-health')).toBe('/quote/small-group-health/');
+  });
+
+  it('links hub-only lines to the hub with a preselect parameter', () => {
+    expect(quoteHref('umbrella')).toBe('/quote/?line=umbrella');
+    expect(quoteHref('life')).toBe('/quote/?line=life');
+  });
+
+  it('falls back to the bare hub for an unknown line', () => {
+    expect(quoteHref('nope')).toBe('/quote/');
+  });
+});

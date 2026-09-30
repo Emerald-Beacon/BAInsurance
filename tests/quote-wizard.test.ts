@@ -101,3 +101,24 @@ describe('collectValues', () => {
     expect(collectValues(form)['commercial-coverages']).toEqual(['Cyber liability']);
   });
 });
+
+import { presetFromQuery } from '../src/scripts/quote-wizard';
+
+describe('presetFromQuery', () => {
+  it('reads a known line from the query string', () => {
+    expect(presetFromQuery('?line=umbrella')).toBe('umbrella');
+  });
+
+  it('ignores an unknown line', () => {
+    expect(presetFromQuery('?line=nope')).toBe('');
+  });
+
+  it('ignores a missing parameter', () => {
+    expect(presetFromQuery('')).toBe('');
+    expect(presetFromQuery('?utm_source=google')).toBe('');
+  });
+
+  it('survives a malformed query string', () => {
+    expect(() => presetFromQuery('?%%%')).not.toThrow();
+  });
+});

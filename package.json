@@ -13,6 +13,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:build": "astro build && vitest run tests/build-output.test.ts",
+    "check:launch": "node scripts/check-launch.mjs",
     "sync:blog": "node scripts/sync-blog.mjs",
     "sync:blog:check": "node scripts/sync-blog.mjs --dry-run"
   },

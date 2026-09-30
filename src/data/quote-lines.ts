@@ -247,3 +247,10 @@ export const LANDING_LINES: Line[] = LINES.filter((l) => l.landingPage);
 export function lineById(id: string): Line | undefined {
   return LINES.find((l) => l.id === id);
 }
+
+/** Landing lines get their own page; everything else preselects on the hub. */
+export function quoteHref(lineId: string): string {
+  const line = lineById(lineId);
+  if (!line) return '/quote/';
+  return line.landingPage ? `/quote/${line.slug}/` : `/quote/?line=${line.id}`;
+}

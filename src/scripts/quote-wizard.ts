@@ -54,6 +54,15 @@ export function collectValues(form: HTMLFormElement): Values {
   return values;
 }
 
+export function presetFromQuery(search: string): string {
+  try {
+    const id = new URLSearchParams(search).get('line') ?? '';
+    return lineById(id) ? id : '';
+  } catch {
+    return '';
+  }
+}
+
 export function initQuoteWizard(form: HTMLFormElement): void {
   const errorBox = form.querySelector<HTMLElement>('#quote-errors');
   const ctx = (name: string) => form.querySelector<HTMLInputElement>(`#ctx-${name}`);
@@ -67,8 +76,12 @@ export function initQuoteWizard(form: HTMLFormElement): void {
   for (const key of UTM_KEYS) setCtx(key, utm[key] ?? '');
 
   const steps = Array.from(form.querySelectorAll<HTMLElement>('.quote-step'));
-  const preset = form.dataset.activeLine || '';
+  const preset = form.dataset.activeLine || presetFromQuery(window.location.search);
   let current = preset ? 2 : 1;
+  if (preset && !form.dataset.activeLine) {
+    const radio = form.querySelector<HTMLInputElement>(`input[name="coverage-line"][value="${preset}"]`);
+    if (radio) radio.checked = true;
+  }
 
   const visibleSteps = (): HTMLElement[] =>
     steps.filter((s) => {
