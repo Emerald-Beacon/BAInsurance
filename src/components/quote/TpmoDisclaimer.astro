@@ -1,9 +1,23 @@
 ---
+// CMS-required TPMO disclaimer for Medicare marketing.
+//
+// ORGANIZATIONS (8), per the agency 2026-09-30:
+//   UnitedHealthcare · SelectHealth · Regence BlueCross BlueShield · Cigna
+//   Aetna · Molina · Aflac · Devoted Health
+//
+// PRODUCTS is still unfilled. It is the number of distinct plans those
+// organizations offer in the service area, not the number of carriers, and it
+// has to be counted against current-plan-year lineups for Davis County.
+//
+// REVIEW EVERY PLAN YEAR. Both counts move when carriers add, drop or
+// restructure plans at AEP, and a stale count is still a misstatement.
+const ORGANIZATIONS = 8;
+const PRODUCTS = '[M]';
 ---
 <div class="rounded-lg border border-amber-200 bg-amber-50 p-4 text-xs leading-relaxed text-slate-700" data-tpmo>
   <p>
     We do not offer every plan available in your area. Currently we represent
-    <strong>[N]</strong> organizations which offer <strong>[M]</strong> products in your
+    <strong>{ORGANIZATIONS}</strong> organizations which offer <strong>{PRODUCTS}</strong> products in your
     area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health
     Insurance Program to get information on all of your options.
   </p>
