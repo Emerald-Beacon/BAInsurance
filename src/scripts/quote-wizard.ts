@@ -25,8 +25,10 @@ export function applyLineSelection(form: HTMLFormElement, lineId: string): void 
     }
     set.disabled = !selected;
     set.hidden = !selected;
-    if (selected) set.setAttribute('data-active', '');
-    else set.removeAttribute('data-active');
+    // data-active is the stepping marker and belongs to show() alone. Setting it
+    // here revealed the detail step while the visitor was still on step 1, which
+    // let them reach the submit past the required contact fields.
+    set.removeAttribute('data-active');
   }
   form.dataset.activeLine = lineId;
 }
@@ -90,7 +92,19 @@ export function initQuoteWizard(form: HTMLFormElement): void {
       return s.dataset.line === (form.dataset.activeLine || '');
     });
 
-  function show(step: number): void {
+  const progressEl = form.querySelector<HTMLElement>('#quote-progress');
+
+  /** The steps this visitor will actually see, in order. */
+  function stepOrder(): number[] {
+    const order: number[] = [];
+    if (form.querySelector('.quote-step[data-step="1"]')) order.push(1);
+    order.push(2);
+    if ((lineById(form.dataset.activeLine || '')?.fields.length ?? 0) > 0) order.push(3);
+    order.push(4);
+    return order;
+  }
+
+  function show(step: number, initial = false): void {
     current = step;
     for (const s of visibleSteps()) {
       const isActive = Number(s.dataset.step) === step;
@@ -102,10 +116,19 @@ export function initQuoteWizard(form: HTMLFormElement): void {
         s.removeAttribute('data-active');
       }
     }
-    const heading = form.querySelector<HTMLElement>('.quote-step[data-active] h2, .quote-step[data-active] legend');
-    heading?.setAttribute('tabindex', '-1');
-    heading?.focus();
-    track('QuoteStep', { step, line: form.dataset.activeLine || '' });
+    const order = stepOrder();
+    const at = order.indexOf(step);
+    if (progressEl) progressEl.textContent = at >= 0 ? `Step ${at + 1} of ${order.length}` : '';
+    for (const back of form.querySelectorAll<HTMLElement>('.quote-back')) back.hidden = at <= 0;
+
+    // Focusing on the initial render scrolls the page past its own hero — and on
+    // /quote/medicare/ past the TPMO disclaimer that has to be above the form.
+    if (!initial) {
+      const heading = form.querySelector<HTMLElement>('.quote-step[data-active] h2, .quote-step[data-active] legend');
+      heading?.setAttribute('tabindex', '-1');
+      heading?.focus();
+      track('QuoteStep', { step, line: form.dataset.activeLine || '' });
+    }
   }
 
   function showErrors(messages: string[]): void {
@@ -124,6 +147,25 @@ export function initQuoteWizard(form: HTMLFormElement): void {
     if (target?.name === 'coverage-line') applyLineSelection(form, target.value);
   });
 
+  // Spec 8.1 requires a timestamp whenever consent is given. Writing it only at
+  // submit left partial leads claiming consent with no proof of when.
+  const CONSENT_VERSION = '2026-09-30-v1';
+  const stamp = () => new Date().toLocaleString('en-US', { timeZone: 'America/Denver' });
+  const consentEl = form.querySelector<HTMLInputElement>('#tcpa-consent');
+
+  function syncConsent(): void {
+    if (!consentEl?.checked) {
+      setCtx('consent-timestamp', '');
+      setCtx('consent-version', '');
+      return;
+    }
+    if (!ctx('consent-timestamp')?.value) {
+      setCtx('consent-timestamp', stamp());
+      setCtx('consent-version', CONSENT_VERSION);
+    }
+  }
+  consentEl?.addEventListener('change', syncConsent);
+
   const phone = form.querySelector<HTMLInputElement>('#phone');
   phone?.addEventListener('blur', () => { phone.value = normalizePhone(phone.value); });
 
@@ -137,6 +179,8 @@ export function initQuoteWizard(form: HTMLFormElement): void {
   form.addEventListener('click', (e) => {
     const btn = (e.target as HTMLElement).closest<HTMLElement>('.quote-next');
     if (!btn) return;
+    // A button belonging to some other step must never advance the flow.
+    if (btn.closest<HTMLElement>('.quote-step')?.dataset.step !== String(current)) return;
     const goto = Number(btn.dataset.goto);
 
     if (current === 1) {
@@ -163,6 +207,18 @@ export function initQuoteWizard(form: HTMLFormElement): void {
     show(goto);
   });
 
+  form.addEventListener('click', (e) => {
+    const back = (e.target as HTMLElement).closest<HTMLElement>('.quote-back');
+    if (!back) return;
+    if (back.closest<HTMLElement>('.quote-step')?.dataset.step !== String(current)) return;
+    const order = stepOrder();
+    const at = order.indexOf(current);
+    if (at > 0) {
+      showErrors([]);
+      show(order[at - 1]);
+    }
+  });
+
   form.addEventListener('submit', (event) => {
     // Spec §11's time floor. No human fills five required fields in 3 seconds.
     const rendered = Number(ctx('render-time')?.value ?? 0);
@@ -172,17 +228,13 @@ export function initQuoteWizard(form: HTMLFormElement): void {
       return;
     }
 
-    const consentEl = form.querySelector<HTMLInputElement>('#tcpa-consent');
+    syncConsent();
     const given = Boolean(consentEl?.checked);
-    const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/Denver' });
-    if (given) {
-      setCtx('consent-timestamp', timestamp);
-      setCtx('consent-version', '2026-09-30-v1');
-    }
+    const timestamp = ctx('consent-timestamp')?.value || undefined;
     // Records which Medicare products the visitor agreed to discuss, and when.
     // This is interest, not a CMS Scope of Appointment — see spec §8.3.
     if (form.querySelectorAll('input[name="medicare-soa-products"]:checked').length > 0) {
-      setCtx('medicare-soa-timestamp', timestamp);
+      setCtx('medicare-soa-timestamp', stamp());
     }
     const lineId = form.dataset.activeLine || '';
     const line = lineById(lineId);
@@ -192,7 +244,7 @@ export function initQuoteWizard(form: HTMLFormElement): void {
         summary.value = composeLeadSummary({
           line,
           values: collectValues(form),
-          consent: { given, timestamp: given ? timestamp : undefined },
+          consent: { given, timestamp },
           context: {
             sourcePath: window.location.pathname,
             utm: parseUtm(window.location.search),
@@ -213,5 +265,5 @@ export function initQuoteWizard(form: HTMLFormElement): void {
 
   if (preset) applyLineSelection(form, preset);
   form.setAttribute('data-wizard-ready', '');
-  show(current);
+  show(current, true);
 }

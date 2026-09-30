@@ -36,7 +36,9 @@ export function armPartialCapture(
     if (typeof navigator.sendBeacon === 'function') navigator.sendBeacon('/', blob);
   };
 
-  form.addEventListener('submit', () => { sent = true; });
+  // Only a submit that actually leaves the page ends capture. A submit the
+  // wizard blocked (the time floor) must leave the visitor recoverable.
+  form.addEventListener('submit', (event) => { if (!event.defaultPrevented) sent = true; });
   window.addEventListener('pagehide', send);
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') send();

@@ -45,6 +45,19 @@ describe.skipIf(!hasDist)('built quote pages', () => {
     expect(html('dist/quote/index.html')).toContain('name="quote-partial"');
   });
 
+  it('declares every universal field the beacon can send', () => {
+    const page = html('dist/quote/index.html');
+    const decl = page.slice(page.indexOf('name="quote-partial"'));
+    // Netlify drops fields it never parsed, so an undeclared field is sent and lost.
+    for (const field of [
+      'lead-id', 'coverage-line', 'first-name', 'last-name', 'email', 'phone', 'zip',
+      'contact-method', 'best-time', 'tcpa-consent', 'consent-timestamp', 'consent-version',
+      'notes', 'source-path', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term',
+    ]) {
+      expect(decl.includes(`name="${field}"`), `${field} undeclared on quote-partial`).toBe(true);
+    }
+  });
+
   it('renders the TPMO disclaimer above the form on the Medicare landing page', () => {
     const page = html('dist/quote/medicare/index.html');
     expect(page.indexOf('data-tpmo')).toBeLessThan(page.indexOf('name="quote"'));
@@ -76,5 +89,13 @@ describe.skipIf(!hasDist)('built quote pages', () => {
     for (const line of LANDING_LINES) {
       expect(html(`dist/quote/${line.slug}/index.html`)).toContain('"FAQPage"');
     }
+  });
+});
+
+// Not gated on dist: this is about what the deploy is obliged to run.
+describe('launch gate', () => {
+  it('wires check:launch into the Netlify build command', () => {
+    expect(existsSync('netlify.toml'), 'netlify.toml missing — the Netlify UI build command cannot be enforced from the repo').toBe(true);
+    expect(readFileSync('netlify.toml', 'utf8')).toMatch(/command\s*=\s*"[^"]*check:launch/);
   });
 });
