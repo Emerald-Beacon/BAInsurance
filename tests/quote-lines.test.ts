@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { LINES, LANDING_LINES, lineById } from '../src/data/quote-lines';
+import { LINES, LANDING_LINES, MEDICARE_LIVE, lineById } from '../src/data/quote-lines';
 
 describe('quote-lines data integrity', () => {
-  it('defines fourteen lines', () => {
-    expect(LINES).toHaveLength(14);
+  it('defines fourteen lines, less Medicare while its TPMO counts are unfilled', () => {
+    expect(LINES).toHaveLength(MEDICARE_LIVE ? 14 : 13);
   });
 
   it('gives every line a unique id', () => {
@@ -36,8 +36,8 @@ describe('quote-lines data integrity', () => {
     }
   });
 
-  it('exposes exactly eight landing lines, each with a slug', () => {
-    expect(LANDING_LINES).toHaveLength(8);
+  it('exposes exactly eight landing lines (seven without Medicare), each with a slug', () => {
+    expect(LANDING_LINES).toHaveLength(MEDICARE_LIVE ? 8 : 7);
     for (const line of LANDING_LINES) {
       expect(line.slug).toMatch(/^[a-z0-9-]+$/);
     }
@@ -46,6 +46,10 @@ describe('quote-lines data integrity', () => {
   it('looks a line up by id', () => {
     expect(lineById('boat')?.label).toBe('Boat & Watercraft');
     expect(lineById('nope')).toBeUndefined();
+  });
+
+  it('hides Medicare entirely until the TPMO disclaimer can be filled', () => {
+    expect(Boolean(lineById('medicare'))).toBe(MEDICARE_LIVE);
   });
 });
 

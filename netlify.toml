@@ -4,8 +4,9 @@
 
 [build]
   publish = "dist"
-  # check:launch fails while the CMS TPMO disclaimer on /quote/medicare/ still
-  # carries its [N] and [M] placeholders. A failed gate fails the deploy — that
-  # is deliberate. Publishing a Medicare marketing page with unfilled placeholders
-  # is a CMS marketing-rule violation, and the fix is two numbers.
+  # check:launch fails if any built page shows the CMS TPMO disclaimer with its
+  # [N] or [M] placeholders. While the counts in src/data/tpmo.ts are unfilled
+  # the Medicare quote line is not built at all, and the gate passes. A failed
+  # gate fails the deploy — that is deliberate. Publishing a Medicare marketing
+  # page with unfilled placeholders is a CMS marketing-rule violation.
   command = "npm run build && npm run check:launch"

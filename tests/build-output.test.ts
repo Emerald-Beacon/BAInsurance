@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, existsSync } from 'node:fs';
-import { LANDING_LINES, LINES } from '../src/data/quote-lines';
+import { LANDING_LINES, LINES, MEDICARE_LIVE } from '../src/data/quote-lines';
 
 const html = (path: string) => readFileSync(path, 'utf8');
 const hasDist = existsSync('dist/quote/index.html');
@@ -58,13 +58,19 @@ describe.skipIf(!hasDist)('built quote pages', () => {
     }
   });
 
-  it('renders the TPMO disclaimer above the form on the Medicare landing page', () => {
+  it.skipIf(MEDICARE_LIVE)('publishes no Medicare page or disclaimer while the counts are unfilled', () => {
+    expect(existsSync('dist/quote/medicare/index.html')).toBe(false);
+    expect(html('dist/quote/index.html')).not.toContain('data-tpmo');
+    expect(html('dist/health/index.html')).not.toContain('href="/quote/medicare/"');
+  });
+
+  it.skipIf(!MEDICARE_LIVE)('renders the TPMO disclaimer above the form on the Medicare landing page', () => {
     const page = html('dist/quote/medicare/index.html');
     expect(page.indexOf('data-tpmo')).toBeLessThan(page.indexOf('name="quote"'));
     expect(page.match(/data-tpmo/g)).toHaveLength(2); // above the form, and in the step
   });
 
-  it('keeps the TPMO disclaimer out of view on non-Medicare pages', () => {
+  it.skipIf(!MEDICARE_LIVE)('keeps the TPMO disclaimer out of view on non-Medicare pages', () => {
     // Every line's fieldset is rendered on every page, so the disclaimer is in
     // the DOM everywhere. What matters is that it is never reachable.
     const page = html('dist/quote/boat/index.html');

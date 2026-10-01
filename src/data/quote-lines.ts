@@ -1,3 +1,5 @@
+import { TPMO_READY } from './tpmo';
+
 export type FieldType =
   | 'text' | 'tel' | 'email' | 'number' | 'date'
   | 'select' | 'radio' | 'checkbox-group' | 'textarea';
@@ -40,7 +42,7 @@ export const CATEGORY_LABELS: Record<Line['category'], string> = {
   health: 'Health & Medicare',
 };
 
-export const LINES: Line[] = [
+const CATALOG: Line[] = [
   {
     id: 'auto', label: 'Auto', category: 'personal',
     landingPage: true, slug: 'auto',
@@ -241,6 +243,11 @@ export const LINES: Line[] = [
   { id: 'individual-health', label: 'Individual Health Plan', category: 'health', landingPage: false, fields: [] },
   { id: 'workers-comp', label: "Workers' Compensation", category: 'business', landingPage: false, fields: [] },
 ];
+
+// Medicare can't be marketed until the TPMO disclaimer has real counts (see
+// tpmo.ts), so the line drops out of the site entirely until then.
+export const MEDICARE_LIVE = TPMO_READY;
+export const LINES: Line[] = CATALOG.filter((l) => l.id !== 'medicare' || MEDICARE_LIVE);
 
 export const LANDING_LINES: Line[] = LINES.filter((l) => l.landingPage);
 
