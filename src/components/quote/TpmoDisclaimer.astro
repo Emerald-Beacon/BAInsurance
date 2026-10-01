@@ -1,0 +1,13 @@
+---
+// CMS-required TPMO disclaimer for Medicare marketing. The counts live in
+// src/data/tpmo.ts; the Medicare quote line is hidden until both are filled.
+import { ORGANIZATIONS, PRODUCTS } from '../../data/tpmo';
+---
+<div class="rounded-lg border border-amber-200 bg-amber-50 p-4 text-xs leading-relaxed text-slate-700" data-tpmo>
+  <p>
+    We do not offer every plan available in your area. Currently we represent
+    <strong>{ORGANIZATIONS}</strong> organizations which offer <strong>{PRODUCTS ?? '[M]'}</strong> products in your
+    area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health
+    Insurance Program to get information on all of your options.
+  </p>
+</div>

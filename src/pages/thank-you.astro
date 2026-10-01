@@ -13,7 +13,7 @@ import Layout from '../layouts/Layout.astro';
         </svg>
       </div>
       <h1 class="text-4xl font-extrabold">Thank You!</h1>
-      <p class="text-white/80 mt-4 text-lg">Your message has been received. A licensed agent will follow up within one business day.</p>
+      <p class="text-white/80 mt-4 text-lg" id="thanks-copy">Your message has been received. A licensed agent will follow up within one business day.</p>
       <p class="text-white/70 mt-2">Need something sooner? Call us at <a href="tel:8014872300" class="underline hover:text-white">(801) 487-2300</a>.</p>
       <a href="/" class="inline-block mt-8 px-6 py-3 bg-white text-[#016490] font-bold rounded-lg hover:bg-slate-100 transition-colors text-sm">
         Back to Home
@@ -22,8 +22,22 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <script>
-    if (typeof (window as any).fbq === 'function') {
-      (window as any).fbq('track', 'Lead');
+    import { lineById } from '../data/quote-lines';
+
+    const params = new URLSearchParams(window.location.search);
+    const line = lineById(params.get('line') ?? '');
+
+    if (line) {
+      const copy = document.getElementById('thanks-copy');
+      if (copy) {
+        copy.textContent =
+          `Your ${line.label.toLowerCase()} request has been received. An agent who handles ${line.label.toLowerCase()} will follow up within one business day.`;
+      }
+    }
+
+    const fbq = (window as any).fbq;
+    if (typeof fbq === 'function') {
+      fbq('track', 'Lead', line ? { content_category: line.id } : {});
     }
   </script>
 </Layout>

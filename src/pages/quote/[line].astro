@@ -1,0 +1,91 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import QuoteWizard from '../../components/quote/QuoteWizard.astro';
+import TpmoDisclaimer from '../../components/quote/TpmoDisclaimer.astro';
+import { LANDING_LINES, type Line } from '../../data/quote-lines';
+
+export function getStaticPaths() {
+  return LANDING_LINES.map((line) => ({ params: { line: line.slug! }, props: { line } }));
+}
+
+interface Props { line: Line }
+const { line } = Astro.props;
+const seo = line.seo!;
+const SITE = 'https://bowthorpeinsurance.com';
+const url = `${SITE}/quote/${line.slug}/`;
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': `${url}#service`,
+      name: seo.h1,
+      serviceType: line.label,
+      url,
+      provider: { '@id': `${SITE}/#agency` },
+      areaServed: { '@type': 'State', name: 'Utah' },
+    },
+    ...(line.faqs?.length
+      ? [{
+          '@type': 'FAQPage',
+          mainEntity: line.faqs.map(({ q, a }) => ({
+            '@type': 'Question',
+            name: q,
+            acceptedAnswer: { '@type': 'Answer', text: a },
+          })),
+        }]
+      : []),
+  ],
+};
+
+const breadcrumbs = [
+  { name: 'Home', url: `${SITE}/` },
+  { name: 'Get a Quote', url: `${SITE}/quote/` },
+  { name: line.label, url },
+];
+---
+<Layout title={seo.title} description={seo.description} schema={pageSchema} breadcrumbs={breadcrumbs}>
+  <section class="bg-[#016490] text-white py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-[#7ebee7] font-semibold text-sm uppercase tracking-widest mb-3">Free &amp; No Obligation</p>
+      <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">{seo.h1}</h1>
+      <p class="text-white/80 text-lg max-w-2xl leading-relaxed">{seo.intro}</p>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {line.id === 'medicare' && (
+        <div class="mb-8">
+          <TpmoDisclaimer />
+        </div>
+      )}
+      <div class="bg-[#f4f8fb] rounded-2xl p-6 sm:p-10">
+        <QuoteWizard line={line.id} />
+      </div>
+      <p class="mt-8 text-center text-sm text-slate-500">
+        Prefer to talk? Call <a href="tel:8014872300" class="font-semibold text-[#016490] hover:underline">(801) 487-2300</a>.
+      </p>
+    </div>
+  </section>
+
+  {line.faqs?.length && (
+    <section class="py-16 bg-[#f4f8fb]">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold text-slate-900 text-center mb-8">{line.label} FAQs</h2>
+        <div class="space-y-4">
+          {line.faqs.map(({ q, a }) => (
+            <details class="bg-white rounded-xl border border-slate-100 shadow-sm group">
+              <summary class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-slate-900 list-none">
+                {q}
+                <svg class="w-5 h-5 text-[#016490] shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <p class="px-6 pb-5 text-sm text-slate-600 leading-relaxed">{a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</Layout>

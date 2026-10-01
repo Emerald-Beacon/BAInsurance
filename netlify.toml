@@ -1,0 +1,12 @@
+# Deploy configuration. A root netlify.toml overrides the build settings in the
+# Netlify UI, which is the point: the launch gate has to live in the repo, where
+# it is reviewable, rather than in a dashboard nobody reads.
+
+[build]
+  publish = "dist"
+  # check:launch fails if any built page shows the CMS TPMO disclaimer with its
+  # [N] or [M] placeholders. While the counts in src/data/tpmo.ts are unfilled
+  # the Medicare quote line is not built at all, and the gate passes. A failed
+  # gate fails the deploy — that is deliberate. Publishing a Medicare marketing
+  # page with unfilled placeholders is a CMS marketing-rule violation.
+  command = "npm run build && npm run check:launch"
